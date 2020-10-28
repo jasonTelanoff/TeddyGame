@@ -104,7 +104,7 @@ class Game extends Scene {
 
     if (p.health <= 0 || framesLeft == 0) {
       println("You survived for " + ((float) framesAlive/60) + " seconds");
-      stop();
+      scene = new Lose();
     }
   }
 

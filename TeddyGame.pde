@@ -9,7 +9,7 @@ void setup() {
 }
 
 void draw() {
-  surface.setTitle("" + frameRate);
+  surface.setTitle("Teddy's Game Ripped Off by Json | FPS: " + frameRate);
 
   scene.update();
   scene.show();

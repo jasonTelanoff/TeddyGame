@@ -1,6 +1,4 @@
-class Scene {
-  void show() {
-  }
-  void update() {
-  }
+abstract class Scene {
+  abstract void show();
+  abstract void update();
 }
