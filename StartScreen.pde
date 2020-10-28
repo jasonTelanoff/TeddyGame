@@ -53,7 +53,7 @@ class Start extends Scene {
     for (Entity e : entities)
       e.show();
 
-    tint(0, 100);
+    tint(255, 200);
 
     textAlign(CENTER, CENTER);
     textSize(50);
@@ -79,27 +79,26 @@ class Start extends Scene {
   class Button {
     String text;
     int x, y, wid, hei;
-    color col, textCol;
+    PImage image;
+    color textCol;
 
     void show() {
-      rectMode(CENTER);
+      imageMode(CENTER);
       textAlign(CENTER, CENTER);
 
-      fill(col);
       if (mouseOn()) {
-        strokeWeight(5);
-        stroke(255, 255, 0);
-        rect(x, y, wid + 10, hei + 5, 20);
+        image(image, x, y, wid + 10, hei + 5);
         fill(textCol);
         textSize((hei + 5)*0.7);
         text(text, x, y - hei/10);
       } else {
-        noStroke();
-        rect(x, y, wid, hei, 20);
+        image(image, x, y, wid, hei);
         fill(textCol);
         textSize(hei*0.7);
         text(text, x, y - hei/10);
       }
+      
+      imageMode(CORNER);
       rectMode(CORNER);
     }
 
@@ -118,7 +117,7 @@ class Start extends Scene {
       y = 250;
       wid = 500;
       hei = 70;
-      col = color(100, 200);
+      image = loadImage("assets/startButton.png");
       textCol = color(255, 200);
     }
 
@@ -132,9 +131,9 @@ class Start extends Scene {
       text = "How to Play";
       x = 450;
       y = 340;
-      wid = 500;
-      hei = 70;
-      col = color(100, 200);
+      wid = 400;
+      hei = 60;
+      image = loadImage("assets/startButton.png");
       textCol = color(255, 200);
     }
   }
@@ -143,10 +142,10 @@ class Start extends Scene {
     {
       text = "Information";
       x = 450;
-      y = 430;
-      wid = 500;
-      hei = 70;
-      col = color(100, 200);
+      y = 420;
+      wid = 400;
+      hei = 60;
+      image = loadImage("assets/startButton.png");
       textCol = color(255, 200);
     }
   }
