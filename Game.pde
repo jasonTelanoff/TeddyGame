@@ -107,6 +107,11 @@ class Game extends Scene {
       scene = new Lose();
     }
   }
+  
+  void onPressed() {
+    for (Button b : buttons)
+      b.onPressed();
+  }
 
   float distE(Entity a, Entity b) {
     return dist(a.pos.x + a.wid/2, a.pos.y + a.hei/2, b.pos.x + b.wid/2, b.pos.y + b.hei/2);

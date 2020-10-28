@@ -16,6 +16,11 @@ class Lose extends Scene {
     
   }
   
+  void onPressed() {
+    for (Button b : buttons)
+      b.press();
+  }
+  
   /*
   --------------------------
    BUTTON
@@ -52,8 +57,12 @@ class Lose extends Scene {
       return mouseX > x - wid/2 && mouseX < x + wid/2 && mouseY > y - hei/2 && mouseY < y + hei/2;
     }
 
-    void onPressed() {
+    void press() {
+      if (mouseOn())
+        onPressed();
     }
+    
+    void onPressed() {}
   }
   
   class RestartButton extends Button {
@@ -68,7 +77,7 @@ class Lose extends Scene {
     }
     
     void onPressed() {
-      
+      scene = new Game(4, 3, 2, 2, 2, 1, 1);
     }
   }
 }

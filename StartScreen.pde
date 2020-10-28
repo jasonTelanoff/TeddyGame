@@ -70,6 +70,11 @@ class Start extends Scene {
     for (Entity e : entities)
       e.update();
   }
+  
+  void onPressed() {
+    for (Button b : buttons)
+      b.onPressed();
+  }
 
   /*
   --------------------------

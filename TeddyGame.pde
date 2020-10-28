@@ -16,14 +16,7 @@ void draw() {
 }
 
 void mousePressed() {
-  if (scene instanceof Game) {
-    for (Game.Button b : ((Game) scene).buttons)
-      if (b.mouseOn())
-        b.onPressed();
-  } else if (scene instanceof Start)
-    for (Start.Button b : ((Start) scene).buttons)
-      if (b.mouseOn())
-        b.onPressed();
+  scene.onPressed();
 }
 
 void keyPressed() {
