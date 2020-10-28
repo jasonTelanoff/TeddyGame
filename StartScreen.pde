@@ -12,10 +12,7 @@ class Start extends Scene {
 
     for (int y = 0; y < spaces.length; y++)
       for (int x = 0; x < spaces[y].length; x++)
-        if (y != 0 || x != 0)
           spaces[y][x] = new Space(x * 50, y * 50, random(6) < 1);
-        else
-          spaces[y][x] = new Space(x * 50, y * 50, false);
 
     for (int i = 0; i < ghosts; i++)
       entities.add(new Ghost());
@@ -135,6 +132,10 @@ class Start extends Scene {
       hei = 60;
       image = loadImage("assets/startButton.png");
       textCol = color(255, 200);
+    }
+    
+    void onPressed() {
+      scene = new Tutorial();
     }
   }
 

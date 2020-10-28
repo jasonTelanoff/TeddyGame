@@ -20,10 +20,13 @@ void mousePressed() {
     for (Game.Button b : ((Game) scene).buttons)
       if (b.mouseOn())
         b.onPressed();
-  } else if (scene instanceof Start)
+  } else if (scene instanceof Start) {
     for (Start.Button b : ((Start) scene).buttons)
       if (b.mouseOn())
         b.onPressed();
+  } else if (scene instanceof Tutorial) {
+    ((Tutorial) scene).slide.onPressed();
+  }
 }
 
 void keyPressed() {
