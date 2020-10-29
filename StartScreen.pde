@@ -4,12 +4,10 @@ class Start extends Scene {
   ArrayList<Button> buttons = new ArrayList<Button>();
   Space[][] spaces;
   Title title;
-  SoundFile backgroundSound;
 
   Start() {
     int ghosts = 10, cyclops = 6, hearts = 3, speeds = 3, points = 3, glows = 2, views = 2;
     background = loadImage("assets/startBackground.png");
-    backgroundSound = new SoundFile(TeddyGame.this, "startBackground.mp3");
     
     backgroundSound.loop();
     
@@ -76,6 +74,8 @@ class Start extends Scene {
   }
 
   void onPressed() {
+    title.onPressed();
+    
     for (Button b : buttons)
       if (b.mouseOn())
         b.onPressed();

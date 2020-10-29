@@ -3,12 +3,18 @@ import processing.sound.*;
 Scene scene;
 boolean w = false, a = false, s = false, d = false, sp = false, rs;
 
+SoundFile backgroundSound;
+
 void setup() {
   size(900, 550);
   frameRate(60);
   noSmooth();
   
   background(0);
+
+  new Thread() { public void run() {
+    backgroundSound = new SoundFile(TeddyGame.this, "startBackground.mp3");
+  }}.start();
 
   scene = new Loading();
   scene.show();
