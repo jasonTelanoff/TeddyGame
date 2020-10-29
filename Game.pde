@@ -3,7 +3,7 @@ class Game extends Scene {
   ArrayList<Entity> entities = new ArrayList<Entity>();
   ArrayList<Button> buttons = new ArrayList<Button>();
   Space[][] spaces;
-  int framesAlive = 0, framesLeft = 600;
+  int framesAlive = 0, framesLeft = 600, glowing = 0;
   float viewDist = 150;
   PImage background;
   boolean paused = false, dead = false;
@@ -64,10 +64,11 @@ class Game extends Scene {
 
     popMatrix();
 
-    if(!dead) overlay();
+    if (!dead) overlay();
 
-    for (Entity e : entities)
-      e.showGlow();
+    if (glowing > 0)
+      for (Entity e : entities)
+        e.showGlow();
 
     noStroke();
     fill(90, 170, 255);
@@ -106,10 +107,12 @@ class Game extends Scene {
       framesAlive++;
 
       framesLeft--;
+
+      if (glowing > 0)
+        glowing--;
     }
 
     if (p.health <= 0 || framesLeft == 0) {
-      println("You survived for " + ((float) framesAlive/60) + " seconds");
       dead = true;
     }
   }
@@ -132,6 +135,7 @@ class Game extends Scene {
     float health, power, speed;
     boolean attacking, facingRight;
     PImage imageLeft;
+    SoundFile walk;
 
     Player() {
       pos = new PVector(5, 5);
@@ -145,6 +149,7 @@ class Game extends Scene {
       framesView = 0;
       image = loadImage("assets/playerRight.png");
       imageLeft  = loadImage("assets/playerLeft.png");
+      walk = new SoundFile(TeddyGame.this, "walk1.wav");
     }
 
     void show() {
@@ -202,6 +207,9 @@ class Game extends Scene {
       }
       if (sp && power == 100) attack();
 
+      if (vel.mag() > 0)
+        if (!walk.isPlaying() && random(1) < 0.07)
+          walk.play();
       pos = playerMovement(vel, speed, this, spaces);
     }
 
@@ -223,6 +231,7 @@ class Game extends Scene {
     int damDelay, frFromLast = 0, size, framesOff = 60, totalFramesOff, framesSiceTarget = 0;
     boolean dieOnDam, facingRight;
     PImage imageLeft;
+    SoundFile attackSound;
 
     void show() {
       if (facingRight)
@@ -232,9 +241,6 @@ class Game extends Scene {
     }
 
     void update() {
-      if (glowing > 0)
-        glowing--;
-
       if (framesOff > 0)
         framesOff--;
       else {
@@ -269,6 +275,7 @@ class Game extends Scene {
       if (dieOnDam)
         entities.remove(this);
       else if (frFromLast == damDelay) {
+        attackSound.play();
         p.health-= damage;
         p.framesToHeal = p.totalHeal;
         frFromLast = 0;
@@ -307,6 +314,7 @@ class Game extends Scene {
       oVal = random(TWO_PI);
       image = loadImage("assets/ghostRight.png");
       imageLeft = loadImage("assets/ghostLeft.png");
+      attackSound = new SoundFile(TeddyGame.this, "ghost_attack.wav");
     }
 
     void show() {
@@ -375,6 +383,7 @@ class Game extends Scene {
       totalFramesOff = 30;
       image = loadImage("assets/cyclopsRight.png");
       imageLeft = loadImage("assets/cyclopsLeft.png");
+      attackSound = new SoundFile(TeddyGame.this, "cyclops_attack.wav");
     }
 
     void defMove() {
@@ -432,6 +441,7 @@ class Game extends Scene {
     int pickUpRange = 20, animateRange;
     float extraHeight, extraValue = 0, speed;
     boolean animating;
+    SoundFile sound;
 
     void spawn() {
       vel = new PVector(0, 0);
@@ -453,9 +463,6 @@ class Game extends Scene {
     }
 
     void update() {
-      if (glowing > 0)
-        glowing--;
-
       if (animating && distE(this, p) < pickUpRange) {
         animating = false;
         onPickUp();
@@ -489,9 +496,11 @@ class Game extends Scene {
       speed = 3;
       image = loadImage("assets/heart.png");
       spawn();
+      sound = new SoundFile(TeddyGame.this, "health.wav");
     }
 
     void onPickUp() {
+      if (!sound.isPlaying()) sound.play();
       p.health+= 8.8;
       p.health = constrain(p.health, 0, 100);
       spawn();
@@ -513,10 +522,12 @@ class Game extends Scene {
       spawn();
       wid2 = 30;
       hei2 = 30;
+      sound = new SoundFile(TeddyGame.this, "speed.wav");
     }
 
     void onPickUp() {
       if (framesLeft > 0) {
+        if (!sound.isPlaying()) sound.play();
         framesLeft--;
         wid2-= 0.5;
         hei2-= 0.5;
@@ -545,9 +556,11 @@ class Game extends Scene {
       image = loadImage("assets/point.png");
       frames = 180;
       spawn();
+      sound = new SoundFile(TeddyGame.this, "time.wav");
     }
 
     void onPickUp() {
+      if (!sound.isPlaying()) sound.play();
       framesLeft+= frames;
       if (frames > 90)
         frames-= 5;
@@ -567,11 +580,12 @@ class Game extends Scene {
       image = loadImage("assets/glowstone.png");
       spawn();
       frames = 120;
+      sound = new SoundFile(TeddyGame.this, "glow.wav");
     }
 
     void onPickUp() {
-      for (Entity e : entities)
-        e.glowing = frames;
+      if (!sound.isPlaying()) sound.play();
+      glowing = frames;
       spawn();
     }
   }
@@ -587,9 +601,11 @@ class Game extends Scene {
       image = loadImage("assets/view.png");
       spawn();
       frames = 120;
+      sound = new SoundFile(TeddyGame.this, "view.wav");
     }
 
     void onPickUp() {
+      if (!sound.isPlaying()) sound.play();
       p.framesView = frames;
       spawn();
     }

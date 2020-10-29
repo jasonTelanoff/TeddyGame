@@ -1,3 +1,5 @@
+import processing.sound.*;
+
 Scene scene;
 boolean w = false, a = false, s = false, d = false, sp = false, rs;
 

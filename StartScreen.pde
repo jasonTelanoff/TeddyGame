@@ -4,10 +4,15 @@ class Start extends Scene {
   ArrayList<Button> buttons = new ArrayList<Button>();
   Space[][] spaces;
   Title title;
+  SoundFile backgroundSound;
 
   Start() {
     int ghosts = 10, cyclops = 6, hearts = 3, speeds = 3, points = 3, glows = 2, views = 2;
     background = loadImage("assets/startBackground.png");
+    backgroundSound = new SoundFile(TeddyGame.this, "startBackground.mp3");
+    
+    backgroundSound.loop();
+    
     title = new Title();
 
     spaces = new Space[height/50][width/50];
@@ -127,6 +132,7 @@ class Start extends Scene {
     }
 
     void onPressed() {
+      backgroundSound.stop();
       scene = new Game(4, 3, 2, 2, 2, 1, 1);
     }
   }
@@ -143,6 +149,7 @@ class Start extends Scene {
     }
 
     void onPressed() {
+      backgroundSound.stop();
       scene = new Tutorial();
     }
   }
@@ -159,6 +166,7 @@ class Start extends Scene {
     }
 
     void onPressed() {
+      backgroundSound.stop();
       scene = new Information();
     }
   }

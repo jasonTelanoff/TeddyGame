@@ -432,6 +432,7 @@ class Tutorial extends Scene {
     float health, power, speed;
     boolean attacking, facingRight;
     PImage imageLeft;
+    SoundFile walk;
 
     Player() {
       pos = new PVector(5, 5);
@@ -445,6 +446,7 @@ class Tutorial extends Scene {
       framesView = 0;
       image = loadImage("assets/playerRight.png");
       imageLeft  = loadImage("assets/playerLeft.png");
+      walk = new SoundFile(TeddyGame.this, "walk1.wav");
     }
 
     void show() {
@@ -495,6 +497,10 @@ class Tutorial extends Scene {
       }
       if (sp && power == 100) attack();
 
+      if (vel.mag() > 0)
+        if (!walk.isPlaying() && random(1) < 0.07) {
+          walk.play();
+        }
       pos = playerMovement(vel, speed, this, spaces);
     }
 
