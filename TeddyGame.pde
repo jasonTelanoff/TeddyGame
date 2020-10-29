@@ -7,8 +7,11 @@ void setup() {
   size(900, 550);
   frameRate(60);
   noSmooth();
+  
+  background(0);
 
-  scene = new Start();
+  scene = new Loading();
+  scene.show();
 }
 
 void draw() {
