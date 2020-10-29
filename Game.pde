@@ -110,7 +110,8 @@ class Game extends Scene {
   
   void onPressed() {
     for (Button b : buttons)
-      b.onPressed();
+      if (b.mouseOn())
+        b.onPressed();
   }
 
   float distE(Entity a, Entity b) {

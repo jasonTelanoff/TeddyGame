@@ -8,17 +8,25 @@ class Lose extends Scene {
   }
   
   void show() {
+    tint(255, 200);
+
+    textAlign(CENTER, CENTER);
+    textSize(50);
+    fill(255);
+    text("Game Over :(", 450, 50);
+    
     for (Button b : buttons)
       b.show();
   }
   
   void update() {
-    
+    if (rs)
+      scene = new Game(4, 3, 2, 2, 2, 1, 1);
   }
   
   void onPressed() {
     for (Button b : buttons)
-      b.press();
+      b.onPressed();
   }
   
   /*
@@ -29,27 +37,26 @@ class Lose extends Scene {
   class Button {
     String text;
     int x, y, wid, hei;
-    color col, textCol;
+    PImage image;
+    color textCol;
 
     void show() {
-      rectMode(CENTER);
+      imageMode(CENTER);
       textAlign(CENTER, CENTER);
 
-      fill(col);
       if (mouseOn()) {
-        strokeWeight(5);
-        stroke(255, 255, 0);
-        rect(x, y, wid + 10, hei + 5, 20);
+        image(image, x, y, wid + 10, hei + 5);
         fill(textCol);
         textSize((hei + 5)*0.7);
         text(text, x, y - hei/10);
       } else {
-        noStroke();
-        rect(x, y, wid, hei, 20);
+        image(image, x, y, wid, hei);
         fill(textCol);
         textSize(hei*0.7);
         text(text, x, y - hei/10);
       }
+      
+      imageMode(CORNER);
       rectMode(CORNER);
     }
 
@@ -72,7 +79,7 @@ class Lose extends Scene {
       wid = 500;
       hei = 70;
       text = "Try Again?";
-      col = color(100, 200);
+      image = loadImage("assets/startButton.png");
       textCol = color(255, 200);
     }
     

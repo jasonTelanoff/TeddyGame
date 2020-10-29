@@ -1,9 +1,10 @@
 Scene scene;
-boolean w = false, a = false, s = false, d = false, sp = false;
+boolean w = false, a = false, s = false, d = false, sp = false, rs;
 
 void setup() {
   size(900, 550);
   frameRate(60);
+  noSmooth();
 
   scene = new Start(10, 6, 3, 3, 3, 2, 2);
 }
@@ -36,6 +37,9 @@ void keyPressed() {
   case 32:
     sp = true;
     break;
+  case 82:
+    rs = true;
+    break;
   default:
     println(keyCode);
   }
@@ -57,6 +61,9 @@ void keyReleased() {
     break;
   case 32:
     sp = false;
+    break;
+  case 82:
+    rs = false;
     break;
   default:
     println(keyCode);
