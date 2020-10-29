@@ -155,6 +155,10 @@ class Start extends Scene {
       image = loadImage("assets/startButton.png");
       textCol = color(255, 200);
     }
+    
+    void onPressed() {
+      scene = new Information();
+    }
   }
 
   /*
