@@ -64,7 +64,7 @@ class Game extends Scene {
 
     popMatrix();
 
-    overlay();
+    if(!dead) overlay();
 
     for (Entity e : entities)
       e.showGlow();

@@ -9,8 +9,9 @@ class Lose {
   }
 
   void show(float frames) {
-    tint(255, 200);
-
+    fill(100, 200);
+    noStroke();
+    rect(200, 130, 500, 300, 50);
     textAlign(CENTER, TOP);
     textSize(50);
     fill(255);
