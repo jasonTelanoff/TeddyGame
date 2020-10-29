@@ -2,7 +2,6 @@ class Tutorial extends Scene {
   int page;
   float viewDist = 150;
   Space[][] spaces;
-  ArrayList<Slide> slides = new ArrayList<Slide>();
   Player p;
   PImage background;
   Slide slide;
@@ -21,9 +20,8 @@ class Tutorial extends Scene {
           spaces[y][x] = new Space(x * 50, y * 50, false);
 
     background = loadImage("assets/background.png");
-    slides.add(new Slide1());
 
-    slide = slides.get(0);
+    slide = new Slide1();
   }
 
   void show() {
@@ -32,6 +30,10 @@ class Tutorial extends Scene {
 
   void update() {
     slide.update();
+  }
+
+  void onPressed() {
+    slide.onPressed();
   }
 
   class Slide {
@@ -96,7 +98,7 @@ class Tutorial extends Scene {
       textSize(20);
       switch(thing) {
       case 0:
-        text("This is your player,\nmove around with w-a-s-d.", 60, 50);
+        text("This is your player,\nmove around with w-a-s-d.\nClick to continue.", 60, 50);
         break;
       case 1:
         text("You'll notice these blue things,\nthese are barriers.\nThey randomly generate every game.", 300, 200);
@@ -142,7 +144,8 @@ class Tutorial extends Scene {
       case 5: 
         break;
       case 7:
-        //next scene
+        entities.clear();
+        slide = new Slide2();
         break;
       default:
         thing++;
@@ -158,8 +161,8 @@ class Tutorial extends Scene {
       void spawn() {
         vel = new PVector(0, 0);
 
-        int x = (int) random(width - 50)/50;
-        int y = (int) random(height - 100)/50;
+        int x = (int) random(700)/50;
+        int y = (int) random(100, 450)/50;
 
         if (!spaces[y][x].collision)
           pos = new PVector(x*50 + (50 - wid)/2, y*50 + (50 - hei)/2);
@@ -221,6 +224,205 @@ class Tutorial extends Scene {
           entities.remove(this);
         }
         if (thing == 3) thing++;
+      }
+    }
+  }
+
+  /* ------------
+   TWO
+   ------------ */
+  class Slide2 extends Slide {
+    void show() {
+      background(background);
+
+      pushMatrix();
+      translate(0, 50);
+
+      for (Entity e : entities)
+        e.show();
+
+      popMatrix();
+
+
+      fill(255);
+      textAlign(CENTER, BOTTOM);
+      textSize(20);
+      switch(thing) {
+      case 0:
+        text("Let's learn about all the power ups found throughout the game.", 450, 250);
+        break;
+      case 1:
+        text("This is a Heart. As you've seen, it heals you.", 450, 200);
+        break;
+      case 2:
+        text("This is a Speed Boost. It will follow you once it's picked up\ngranting you faster speed until it runs out.", 450, 200);
+        break;
+      case 3:
+        text("This is a Time Increaser. It will grant you extra time up to 2 seconds,\nbut its boost will decrease as the game continues.", 450, 200);
+        break;
+      case 4:
+        text("This is a Glowstone, and yes, we did take that from Minecraft.\nOnce picked up, it will cause all power ups and enemies\nto glow, allowing you to see them through the dark.", 450, 200);
+        break;
+      case 5:
+        text("This is a View Doubler. You only have a limited view in game,\nand this will double it.", 450, 200);
+        break;
+      case 6:
+        text("There are also several enemies out to get you\nin the game.", 450, 250);
+        break;
+      case 7:
+        text("Ghosts change between being invisable and visible.\nThey do low damage, but over time it can cause a lot of damage.\nThey have a fast movement speed and, being ghosts, can go through the barriers.\nThey also have a large vision.", 450, 200);
+        break;
+      case 8:
+        text("Cyclopse are larger and clunkier.\nThey aren't the smartest and will be seen running into walls.\nThis may be funny, but their damage output is nothign to laugh at.\nThey have a medium movement speed and a small vision.", 450, 200);
+        break;
+      }
+    }
+
+    void update() {
+      for (int i = entities.size() - 1; i >= 0; i--)
+        entities.get(i).update();
+    }
+
+    void onPressed() {
+      switch(thing) {
+      case 0:
+        entities.add(new Heart());
+        break;
+      case 1:
+        entities.set(0, new SpeedBoost());
+        break;
+      case 2:
+        entities.set(0, new Point());
+        break;
+      case 3:
+        entities.set(0, new Glowstone());
+        break;
+      case 4:
+        entities.set(0, new DoubleView());
+        break;
+      case 5:
+        entities.clear();
+        break;
+      case 6:
+        entities.add(new Ghost());
+        break;
+      case 7:
+        entities.set(0, new Cyclops());
+        break;
+      case 8:
+        scene = new Start(10, 6, 3, 3, 3, 2, 2);
+        break;
+      }
+      thing++;
+    }
+
+    class PowerUp extends Entity {
+      PVector vel;
+      float extraHeight, extraValue = 0;
+
+      void spawn() {
+        pos = new PVector(450 - wid/2, 210 - hei/2);
+      }
+
+      void show() {
+        pushMatrix();
+        translate(0, -extraHeight - 3);
+        image(image, pos.x, pos.y, wid, hei);
+        popMatrix();
+      }
+
+      void update() {
+        extraValue+= 0.06;
+        extraHeight = 5 * sin(extraValue);
+      }
+    }
+
+    class Heart extends PowerUp {
+      {
+        wid = 35;
+        hei = 35;
+        image = loadImage("assets/heart.png");
+        spawn();
+      }
+    }
+
+    class SpeedBoost extends PowerUp {
+      {
+        wid = 30;
+        hei = 30;
+        image = loadImage("assets/speedBoost.png");
+        spawn();
+      }
+    }
+
+    class Point extends PowerUp {
+      {
+        wid = 20;
+        hei = 20;
+        image = loadImage("assets/point.png");
+        spawn();
+      }
+    }
+
+    class Glowstone extends PowerUp {
+      {
+        wid = 25;
+        hei = 25;
+        image = loadImage("assets/glowstone.png");
+        spawn();
+      }
+    }
+
+    class DoubleView extends PowerUp {
+      {
+        wid = 25;
+        hei = 25;
+        image = loadImage("assets/view.png");
+        spawn();
+      }
+    }
+
+    class Ghost extends PowerUp {
+      float oVal;
+
+      {
+        wid = 35;
+        hei = 35;
+        pos = new PVector(450 - wid/2, 210 - hei/2);
+        oVal = random(PI, TWO_PI);
+        image = loadImage("assets/ghostLeft.png");
+      }
+
+      void show() {
+        tint(255, 100*sin(oVal) + 100);
+        pushMatrix();
+        translate(0, -extraHeight - 3);
+        image(image, pos.x, pos.y, wid, hei);
+        popMatrix();
+
+        noTint();
+
+        oVal+= 0.01;
+        if (oVal > TWO_PI)
+          oVal-= TWO_PI;
+      }
+
+      void update() {
+        extraValue+= 0.06;
+        extraHeight = 5 * sin(extraValue);
+      }
+    }
+
+    class Cyclops extends Entity {
+      {
+        wid = 50;
+        hei = 50;
+        pos = new PVector(450 - wid/2, 210 - hei/2);
+        image = loadImage("assets/cyclopsLeft.png");
+      }
+
+      void show() {
+        image(image, pos.x, pos.y, wid, hei);
       }
     }
   }
