@@ -3,10 +3,12 @@ class Start extends Scene {
   ArrayList<Entity> entities = new ArrayList<Entity>();
   ArrayList<Button> buttons = new ArrayList<Button>();
   Space[][] spaces;
+  Title title;
 
   Start() {
     int ghosts = 10, cyclops = 6, hearts = 3, speeds = 3, points = 3, glows = 2, views = 2;
     background = loadImage("assets/startBackground.png");
+    title = new Title();
 
     spaces = new Space[height/50][width/50];
 
@@ -51,12 +53,9 @@ class Start extends Scene {
     for (Entity e : entities)
       e.show();
 
-    tint(255, 200);
+    title.show();
 
-    textAlign(CENTER, CENTER);
-    textSize(50);
-    fill(255);
-    text("Teddy's Game", 450, 50);
+    tint(255, 200);
 
     for (Button b : buttons)
       b.show();
@@ -65,6 +64,8 @@ class Start extends Scene {
   }
 
   void update() {
+    title.update();
+    
     for (Entity e : entities)
       e.update();
   }
@@ -342,6 +343,38 @@ class Start extends Scene {
       hei = 25;
       image = loadImage("assets/view.png");
       spawn();
+    }
+  }
+
+  /*
+  --------------------------
+   TITLE
+   --------------------------
+   */
+  class Title {
+    PVector pos;
+    PImage image;
+    float val;
+
+    {
+      pos = new PVector(450, 120);
+      image = loadImage("assets/title.png");
+    }
+
+    void show() {
+      imageMode(CENTER);
+      pushMatrix();
+      translate(pos.x + sin(val)*10, pos.y + cos(val)*5);
+      rotate(sin(val)/15);
+      image(image, 0, 0, 700, 137);
+      popMatrix();
+      imageMode(CORNER);
+    }
+
+    void update() {
+      val+= 0.03;
+      if(val > TWO_PI)
+        val-= TWO_PI;
     }
   }
 }
