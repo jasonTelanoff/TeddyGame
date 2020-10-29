@@ -149,7 +149,6 @@ class Start extends Scene {
     }
 
     void onPressed() {
-      backgroundSound.stop();
       scene = new Tutorial();
     }
   }
@@ -166,7 +165,6 @@ class Start extends Scene {
     }
 
     void onPressed() {
-      backgroundSound.stop();
       scene = new Information();
     }
   }
