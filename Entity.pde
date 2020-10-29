@@ -48,3 +48,7 @@ PVector playerMovement(PVector vel, float speed, Entity e, Space[][] spaces) {
 
   return pos;
 }
+
+float distE(Entity a, Entity b) {
+  return dist(a.pos.x + a.wid/2, a.pos.y + a.hei/2, b.pos.x + b.wid/2, b.pos.y + b.hei/2);
+}

@@ -67,6 +67,7 @@ class Game extends Scene {
     for (Entity e : entities)
       e.showGlow();
 
+    noStroke();
     fill(90, 170, 255);
     rect(30, 10, p.power * 3, 30);
 
@@ -106,10 +107,6 @@ class Game extends Scene {
       println("You survived for " + ((float) framesAlive/60) + " seconds");
       scene = new Lose();
     }
-  }
-
-  float distE(Entity a, Entity b) {
-    return dist(a.pos.x + a.wid/2, a.pos.y + a.hei/2, b.pos.x + b.wid/2, b.pos.y + b.hei/2);
   }
 
   /*

@@ -1,21 +1,20 @@
 class Lose extends Scene {
   Button[] buttons;
-  
+
   {
     buttons = new Button[] {
       new RestartButton()
     };
   }
-  
+
   void show() {
     for (Button b : buttons)
       b.show();
   }
-  
+
   void update() {
-    
   }
-  
+
   /*
   --------------------------
    BUTTON
@@ -55,7 +54,7 @@ class Lose extends Scene {
     void onPressed() {
     }
   }
-  
+
   class RestartButton extends Button {
     {
       x = width / 2;
@@ -66,9 +65,8 @@ class Lose extends Scene {
       col = color(100, 200);
       textCol = color(255, 200);
     }
-    
+
     void onPressed() {
-      
     }
   }
 }
