@@ -6,7 +6,8 @@ void setup() {
   frameRate(60);
   noSmooth();
 
-  scene = new Start(10, 6, 3, 3, 3, 2, 2);
+  //scene = new Start(10, 6, 3, 3, 3, 2, 2);
+  scene = new Information();
 }
 
 void draw() {
