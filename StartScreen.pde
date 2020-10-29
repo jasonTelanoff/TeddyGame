@@ -67,6 +67,12 @@ class Start extends Scene {
     for (Entity e : entities)
       e.update();
   }
+  
+  void onPressed() {
+    for (Button b : buttons)
+      if (b.mouseOn())
+        b.onPressed();
+  }
 
   /*
   --------------------------

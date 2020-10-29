@@ -1,9 +1,10 @@
 Scene scene;
-boolean w = false, a = false, s = false, d = false, sp = false;
+boolean w = false, a = false, s = false, d = false, sp = false, rs;
 
 void setup() {
   size(900, 550);
   frameRate(60);
+  noSmooth();
 
   scene = new Start(10, 6, 3, 3, 3, 2, 2);
 }
@@ -16,17 +17,7 @@ void draw() {
 }
 
 void mousePressed() {
-  if (scene instanceof Game) {
-    for (Game.Button b : ((Game) scene).buttons)
-      if (b.mouseOn())
-        b.onPressed();
-  } else if (scene instanceof Start) {
-    for (Start.Button b : ((Start) scene).buttons)
-      if (b.mouseOn())
-        b.onPressed();
-  } else if (scene instanceof Tutorial) {
-    ((Tutorial) scene).slide.onPressed();
-  }
+  scene.onPressed();
 }
 
 void keyPressed() {
@@ -45,6 +36,9 @@ void keyPressed() {
     break;
   case 32:
     sp = true;
+    break;
+  case 82:
+    rs = true;
     break;
   default:
     println(keyCode);
@@ -67,6 +61,9 @@ void keyReleased() {
     break;
   case 32:
     sp = false;
+    break;
+  case 82:
+    rs = false;
     break;
   default:
     println(keyCode);

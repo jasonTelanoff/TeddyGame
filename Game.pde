@@ -108,6 +108,12 @@ class Game extends Scene {
       scene = new Lose();
     }
   }
+  
+  void onPressed() {
+    for (Button b : buttons)
+      if (b.mouseOn())
+        b.onPressed();
+  }
 
   /*
   --------------------------
