@@ -6,9 +6,11 @@ class Game extends Scene {
   int framesAlive = 0, framesLeft = 600;
   float viewDist = 150;
   PImage background;
-  boolean paused = false;
+  boolean paused = false, dead = false;
+  Lose lose;
 
   Game(int ghosts, int cyclops, int hearts, int speeds, int points, int glows, int views) {
+    lose = new Lose();
     p = new Player();
     background = loadImage("assets/background.png");
 
@@ -88,10 +90,13 @@ class Game extends Scene {
 
     for (Button b : buttons)
       b.show();
+
+    if (dead)
+      lose.show(framesAlive);
   }
 
   void update() {
-    if (!paused) {
+    if (!paused && !dead) {
       p.speed = 5;
 
       for (Entity e : entities)
@@ -105,14 +110,16 @@ class Game extends Scene {
 
     if (p.health <= 0 || framesLeft == 0) {
       println("You survived for " + ((float) framesAlive/60) + " seconds");
-      scene = new Lose();
+      dead = true;
     }
   }
-  
+
   void onPressed() {
     for (Button b : buttons)
       if (b.mouseOn())
         b.onPressed();
+    if (dead)
+      lose.onPressed();
   }
 
   /*

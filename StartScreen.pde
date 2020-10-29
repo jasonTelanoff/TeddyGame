@@ -4,7 +4,8 @@ class Start extends Scene {
   ArrayList<Button> buttons = new ArrayList<Button>();
   Space[][] spaces;
 
-  Start(int ghosts, int cyclops, int hearts, int speeds, int points, int glows, int views) {
+  Start() {
+    int ghosts = 10, cyclops = 6, hearts = 3, speeds = 3, points = 3, glows = 2, views = 2;
     background = loadImage("assets/startBackground.png");
 
     spaces = new Space[height/50][width/50];
@@ -67,7 +68,7 @@ class Start extends Scene {
     for (Entity e : entities)
       e.update();
   }
-  
+
   void onPressed() {
     for (Button b : buttons)
       if (b.mouseOn())
@@ -155,7 +156,7 @@ class Start extends Scene {
       image = loadImage("assets/startButton.png");
       textCol = color(255, 200);
     }
-    
+
     void onPressed() {
       scene = new Information();
     }
@@ -291,6 +292,11 @@ class Start extends Scene {
       translate(0, -extraHeight - 3);
       image(image, pos.x, pos.y, wid, hei);
       popMatrix();
+    }
+
+    void update() {
+      extraValue+= 0.06;
+      extraHeight = 5 * sin(extraValue);
     }
   }
 

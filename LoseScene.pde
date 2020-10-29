@@ -1,20 +1,24 @@
-class Lose extends Scene {
+class Lose {
   Button[] buttons;
 
   {
     buttons = new Button[] {
-      new RestartButton()
+      new RestartButton(),
+      new ExitButton(),
     };
   }
 
-  void show() {
+  void show(float frames) {
     tint(255, 200);
 
-    textAlign(CENTER, CENTER);
+    textAlign(CENTER, TOP);
     textSize(50);
     fill(255);
-    text("Game Over :(", 450, 50);
-    
+    // Add different messages
+    text("Game Over", 450, 150);
+    textSize(30);
+    text("You survived for " + (frames/60 + "00000").substring(0, 5) + " seconds", 450, 210);
+
     for (Button b : buttons)
       b.show();
   }
@@ -23,10 +27,11 @@ class Lose extends Scene {
     if (rs)
       scene = new Game(4, 3, 2, 2, 2, 1, 1);
   }
-  
+
   void onPressed() {
     for (Button b : buttons)
-      b.onPressed();
+      if (b.mouseOn())
+        b.onPressed();
   }
 
   /*
@@ -55,7 +60,7 @@ class Lose extends Scene {
         textSize(hei*0.7);
         text(text, x, y - hei/10);
       }
-      
+
       imageMode(CORNER);
       rectMode(CORNER);
     }
@@ -68,23 +73,40 @@ class Lose extends Scene {
       if (mouseOn())
         onPressed();
     }
-    
-    void onPressed() {}
+
+    void onPressed() {
+    }
   }
 
   class RestartButton extends Button {
     {
-      x = width / 2;
-      y = 150;
-      wid = 500;
-      hei = 70;
-      text = "Try Again?";
+      x = 450;
+      y = 300;
+      wid = 300;
+      hei = 50;
+      text = "Try Again";
       image = loadImage("assets/startButton.png");
       textCol = color(255, 200);
     }
 
     void onPressed() {
       scene = new Game(4, 3, 2, 2, 2, 1, 1);
+    }
+  }
+  
+  class ExitButton extends Button {
+    {
+      x = 450;
+      y = 360;
+      wid = 300;
+      hei = 50;
+      text = "Title Screen";
+      image = loadImage("assets/startButton.png");
+      textCol = color(255, 200);
+    }
+
+    void onPressed() {
+      scene = new Start();
     }
   }
 }

@@ -310,7 +310,7 @@ class Tutorial extends Scene {
         entities.set(0, new Cyclops());
         break;
       case 8:
-        scene = new Start(10, 6, 3, 3, 3, 2, 2);
+        scene = new Start();
         break;
       }
       thing++;

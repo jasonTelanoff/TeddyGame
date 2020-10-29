@@ -47,7 +47,7 @@ class Information extends Scene {
         animating = false;
       }
     if (shown)
-      scene = new Start(10, 6, 3, 3, 3, 2, 2);
+      scene = new Start();
   }
 
   void onPressed() {
@@ -69,7 +69,7 @@ class Information extends Scene {
           text("heh, nerd", 900, 550);
           shown = true;
         } else
-          scene = new Start(10, 6, 3, 3, 3, 2, 2);
+          scene = new Start();
       }
     } else if (mouseX > 530 && mouseX < 640 && mouseY > 145 && mouseY < 185) {
       if (entities.size() < maxEntities)
