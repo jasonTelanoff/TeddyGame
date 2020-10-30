@@ -9,7 +9,8 @@ class Game extends Scene {
   boolean paused, dead;
   Lose lose;
 
-  Game(int ghosts, int cyclops, int hearts, int speeds, int points, int glows, int views) {
+  {
+    int ghosts = 4, cyclops = 3, hearts = 2, speeds = 2, points = 4, glows = 1, views = 1;
     lose = new Lose();
     p = new Player();
     background = loadImage("assets/background.png");
@@ -64,7 +65,7 @@ class Game extends Scene {
 
     popMatrix();
 
-    if (!dead) overlay();
+    //if (!dead) overlay();
 
     if (glowing > 0)
       for (Entity e : entities)
@@ -106,8 +107,8 @@ class Game extends Scene {
 
       framesAlive++;
       framesLeft--;
-      
-      if(glowing > 0) glowing--;
+
+      if (glowing > 0) glowing--;
     }
 
     if (p.health <= 0 || framesLeft == 0) {
@@ -437,16 +438,17 @@ class Game extends Scene {
    */
   class PowerUp extends Entity {
     PVector vel;
-    int pickUpRange = 20, animateRange;
+    int pickUpRange = 20, animateRange, framesIn;
     float extraHeight, extraValue = 0, speed;
     boolean animating;
     SoundFile sound;
-    
+
     {
       glowCol = color(255, 255, 0);
     }
 
     void spawn() {
+      framesIn = 0;
       vel = new PVector(0, 0);
 
       int x = (int) random(width - 50)/50;
@@ -474,7 +476,13 @@ class Game extends Scene {
         animate();
       }
 
-      extraValue+= 0.06;
+      framesIn++;
+      if (framesIn == 600) 
+        spawn();
+      else if (framesIn > 300)
+        extraValue+= 0.06*map(framesIn, 300, 600, 1, 5);
+      else
+        extraValue+= 0.06;
       extraHeight = 5 * sin(extraValue);
     }
 
@@ -532,8 +540,8 @@ class Game extends Scene {
       if (framesLeft > 0) {
         if (!sound.isPlaying()) sound.play();
         framesLeft--;
-        wid2-= 0.5;
-        hei2-= 0.5;
+        wid2-= 0.2;
+        hei2-= 0.2;
         wid = (int) wid2;
         hei = (int) hei2;
         p.speed = 6;
@@ -557,7 +565,7 @@ class Game extends Scene {
       animateRange = 64;
       speed = 8;
       image = loadImage("assets/point.png");
-      frames = 180;
+      frames = 160;
       spawn();
       sound = new SoundFile(TeddyGame.this, "time.wav");
     }
@@ -566,7 +574,7 @@ class Game extends Scene {
       if (!sound.isPlaying()) sound.play();
       framesLeft+= frames;
       if (frames > 90)
-        frames-= 5;
+        frames-= 8;
       //if(framesLeft > 600) framesLeft = 600;
       spawn();
     }
@@ -622,11 +630,15 @@ class Game extends Scene {
    --------------------------
    */
   class GameButton extends Button {
+    int x;
+    PImage image;
+
     void show() {
       if (mouseOn()) image(image, x - 5, 5, 40, 40);
       else image(image, x, 10, 30, 30);
     }
-    void onPressed() {
+    boolean mouseOn() {
+      return mouseX > x - 10 && mouseX < x + 40 && mouseY > 0 && mouseY < 50;
     }
   }
 
@@ -637,7 +649,7 @@ class Game extends Scene {
     }
 
     void onPressed() {
-      scene = new Game(4, 3, 2, 2, 2, 1, 1);
+      scene = new Game();
     }
   }
 

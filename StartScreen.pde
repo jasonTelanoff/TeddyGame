@@ -94,7 +94,7 @@ class Start extends Scene {
 
     void onPressed() {
       backgroundSound.stop();
-      scene = new Game(4, 3, 2, 2, 2, 1, 1);
+      scene = new Game();
     }
   }
 
