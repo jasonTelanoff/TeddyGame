@@ -5,6 +5,7 @@ class Tutorial extends Scene {
   Player p;
   PImage background;
   Slide slide;
+  Button backButton;
 
   {
     page = 0;
@@ -22,10 +23,14 @@ class Tutorial extends Scene {
     background = loadImage("assets/background.png");
 
     slide = new Slide1();
+
+    backButton = new BackButton();
   }
 
   void show() {
     slide.show();
+
+    backButton.show();
   }
 
   void update() {
@@ -33,7 +38,10 @@ class Tutorial extends Scene {
   }
 
   void onPressed() {
-    slide.onPressed();
+    if (backButton.mouseOn())
+      backButton.onPressed();
+    else
+      slide.onPressed();
   }
 
   class Slide {
@@ -467,10 +475,6 @@ class Tutorial extends Scene {
         if (power > 0) {
           attackRad+= 15;
           power-= 5;
-          //for (Entity e : entities)
-          //if (e instanceof Enemy)
-          //if (distE(this, e) < attackRad)
-          //((Enemy) e).hit(attackRad);
         } else attacking = false;
       } else 
       power+=0.2;
@@ -509,6 +513,22 @@ class Tutorial extends Scene {
       attacking = true;
       framesToHeal = totalHeal;
       if (slide instanceof Slide1 && slide.thing == 5) slide.thing++;
+    }
+  }
+
+  class BackButton extends Button {
+    {
+      x = 100;
+      y = 525;
+      hei = 30;
+      wid = 140;
+      text = "Main Menu";
+      image = loadImage("assets/startButton.png");
+      textCol = color(255);
+    }
+
+    void onPressed() {
+      scene = new Start();
     }
   }
 }

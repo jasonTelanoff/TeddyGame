@@ -1,6 +1,7 @@
 class Entity {
   PVector pos;
   int wid, hei;
+  color glowCol;
   PImage image;
 
   void update() {
@@ -9,7 +10,7 @@ class Entity {
   }
   void showGlow() {
     noFill();
-    stroke(255, 255, 0);
+    stroke(glowCol);
     strokeWeight(1);
     rect(pos.x, pos.y + 50, wid, hei);
   }

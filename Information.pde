@@ -2,12 +2,14 @@ class Information extends Scene {
   PImage background;
   boolean credits, shown = false, animating, yt;
   ArrayList<Entity> entities = new ArrayList<Entity>();
+  Button backButton;
   float ang;
   int clicks, frames, maxEntities = 30;
   String name1 = "Teddy Telanoff", name2 = "Jason Telanoff", yt1 = "Treidex Semextetry", yt2 = "BlahFromAbove";
 
   {
     background = loadImage("assets/startBackground.png");
+    backButton = new BackButton();
   }
 
   void show() {
@@ -32,6 +34,13 @@ class Information extends Scene {
       text((yt?yt2:name2), 0, 0);
       popMatrix();
     }
+    
+    fill(255);
+    textSize(20);
+    textAlign(RIGHT, BOTTOM);
+    text("Click anywhere to continue", 890, 540);
+
+    backButton.show();
   }
 
   void update() {
@@ -51,7 +60,9 @@ class Information extends Scene {
   }
 
   void onPressed() {
-    if (credits) {
+    if (backButton.mouseOn())
+      backButton.onPressed();
+    else if (credits) {
       if (!yt && mouseX > 500 && mouseX < 720 && mouseY > 300 && mouseY < 350) {
         if (animating) {
           if (clicks < 3)
@@ -78,6 +89,25 @@ class Information extends Scene {
       if (entities.size() < maxEntities)
         entities.add(new Cyclops());
     } else credits = true;
+  }
+
+  class BackButton extends Button {
+    {
+      x = 45;
+      y = 525;
+      hei = 30;
+      wid = 70;
+      text = "Back";
+      image = loadImage("assets/startButton.png");
+      textCol = color(255);
+    }
+
+    void onPressed() {
+      if (credits)
+        credits = false;
+      else
+        scene = new Start();
+    }
   }
 
   class Enemy extends Entity {

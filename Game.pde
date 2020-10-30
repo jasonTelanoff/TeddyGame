@@ -3,10 +3,10 @@ class Game extends Scene {
   ArrayList<Entity> entities = new ArrayList<Entity>();
   ArrayList<Button> buttons = new ArrayList<Button>();
   Space[][] spaces;
-  int framesAlive = 0, framesLeft = 600, glowing = 0;
+  int framesAlive = 0, framesLeft = 600, glowing;
   float viewDist = 150;
   PImage background;
-  boolean paused = false, dead = false;
+  boolean paused, dead;
   Lose lose;
 
   Game(int ghosts, int cyclops, int hearts, int speeds, int points, int glows, int views) {
@@ -105,11 +105,9 @@ class Game extends Scene {
       p.update();
 
       framesAlive++;
-
       framesLeft--;
-
-      if (glowing > 0)
-        glowing--;
+      
+      if(glowing > 0) glowing--;
     }
 
     if (p.health <= 0 || framesLeft == 0) {
@@ -168,8 +166,8 @@ class Game extends Scene {
     void update() {
       if (attacking) {
         if (power > 0) {
-          attackRad+= 15;
-          power-= 5;
+          attackRad+= 22;
+          power-= 4;
           for (Entity e : entities)
             if (e instanceof Enemy)
               if (distE(this, e) < attackRad)
@@ -233,6 +231,10 @@ class Game extends Scene {
     PImage imageLeft;
     SoundFile attackSound;
 
+    {
+      glowCol = color(255, 0, 0);
+    }
+
     void show() {
       if (facingRight)
         image(image, pos.x, pos.y, wid, hei);
@@ -265,8 +267,6 @@ class Game extends Scene {
 
       if (!spaces[y][x].collision) {
         pos = new PVector(x*50 + (50 - wid)/2, y*50 + (50 - hei)/2);
-        if (p.attacking && distE(this, p) < 300)
-          spawn();
       } else
         spawn();
     }
@@ -283,8 +283,7 @@ class Game extends Scene {
     }
 
     void hit(int rad) {
-      framesOff = (int) map(rad, 0, 300, totalFramesOff, totalFramesOff/10);
-      glowing = 30;
+      framesOff = (int) map(rad, 0, 300, totalFramesOff, totalFramesOff/2);
     }
 
     void defMove() {
@@ -310,7 +309,7 @@ class Game extends Scene {
       size = 20;
       speed = 2.7;
       vision = 200;
-      totalFramesOff = 70;
+      totalFramesOff = 180;
       oVal = random(TWO_PI);
       image = loadImage("assets/ghostRight.png");
       imageLeft = loadImage("assets/ghostLeft.png");
@@ -380,7 +379,7 @@ class Game extends Scene {
       size = 35;
       speed = 1.8;
       vision = 140;
-      totalFramesOff = 30;
+      totalFramesOff = 90;
       image = loadImage("assets/cyclopsRight.png");
       imageLeft = loadImage("assets/cyclopsLeft.png");
       attackSound = new SoundFile(TeddyGame.this, "cyclops_attack.wav");
@@ -442,6 +441,10 @@ class Game extends Scene {
     float extraHeight, extraValue = 0, speed;
     boolean animating;
     SoundFile sound;
+    
+    {
+      glowCol = color(255, 255, 0);
+    }
 
     void spawn() {
       vel = new PVector(0, 0);
@@ -492,8 +495,8 @@ class Game extends Scene {
     Heart() {
       wid = 35;
       hei = 35;
-      animateRange = 65;
-      speed = 3;
+      animateRange = 70;
+      speed = 4;
       image = loadImage("assets/heart.png");
       spawn();
       sound = new SoundFile(TeddyGame.this, "health.wav");
@@ -597,7 +600,7 @@ class Game extends Scene {
       wid = 25;
       hei = 25;
       animateRange = 80;
-      speed = 3;
+      speed = 5;
       image = loadImage("assets/view.png");
       spawn();
       frames = 120;
@@ -618,22 +621,16 @@ class Game extends Scene {
    BUTTON
    --------------------------
    */
-  class Button {
-    int x;
-    PImage image;
-
+  class GameButton extends Button {
     void show() {
       if (mouseOn()) image(image, x - 5, 5, 40, 40);
       else image(image, x, 10, 30, 30);
-    }
-    boolean mouseOn() {
-      return mouseX > x - 10 && mouseX < x + 40 && mouseY > 0 && mouseY < 50;
     }
     void onPressed() {
     }
   }
 
-  class Restart extends Button {
+  class Restart extends GameButton {
     {
       x = 800;
       image = loadImage("assets/restart.png");
@@ -644,7 +641,7 @@ class Game extends Scene {
     }
   }
 
-  class Pause extends Button {
+  class Pause extends GameButton {
     PImage pauImg, playImg;
 
     {
