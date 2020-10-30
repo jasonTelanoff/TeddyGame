@@ -454,8 +454,8 @@ class Tutorial extends Scene {
       totalHeal = 60;
       framesToHeal = 0;
       framesView = 0;
-      image = loadImage("assets/playerRight.png");
-      imageLeft  = loadImage("assets/playerLeft.png");
+      image = loadImage("assets/playerRightHallow.png");
+      imageLeft  = loadImage("assets/playerLeftHallow.png");
       walk = new SoundFile(TeddyGame.this, "walk1.wav");
     }
 

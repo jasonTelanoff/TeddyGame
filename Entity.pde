@@ -3,6 +3,7 @@ class Entity {
   int wid, hei;
   color glowCol;
   PImage image;
+  Game game;
 
   void update() {
   }
