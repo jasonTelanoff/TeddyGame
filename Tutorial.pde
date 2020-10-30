@@ -110,7 +110,7 @@ class Tutorial extends Scene {
         text("This is your player,\nmove around with w-a-s-d.\nClick to continue.", 60, 50);
         break;
       case 1:
-        text("You'll notice these blue things,\nthese are barriers.\nThey randomly generate every game.", 300, 200);
+        text("You'll notice these things,\nthese are barriers.\nThey randomly generate every game.", 300, 200);
         break;
       case 2:
         text("This red bar shows your health.\nIt drops when you're hit by enemies and\nregenerates with time and through picking up hearts.", 350, 60);

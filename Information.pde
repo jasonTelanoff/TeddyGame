@@ -26,9 +26,9 @@ class Information extends Scene {
       text("This is a game. The goal of the game is to\nsurvive as long as possible. Ghosts will try to\ntake your sole, and Cyclops will bash your body.\n" + 
         "Only the bravest and strongest gamers will\nsurvive long enough to question what\nlife decisions led them to the point in their life\nwhere they're playing a game with no end\nfor minutes on end.", 450, 275);
     else {
-      text("Credits:\nThe original idea : " + (yt?yt1:name1) + "\nProject Manager : " + (yt?yt2:name2) + "\nLead developer :               \nArtwork : " + (yt?yt2:name2), 450, 275);
+      text("Credits:\nThe original idea : " + (yt?yt1:name1) + "\nProject Manager : " + (yt?yt2:name2) + "\nLead developer :               \nArtwork : " + (yt?yt2:name2) + "\nHead annoyer : Sophia Telanoff", 450, 275);
       pushMatrix();
-      translate((yt?620:610), 320);
+      translate((yt?620:610), 300);
       if (animating)
         rotate(ang);
       text((yt?yt2:name2), 0, 0);
