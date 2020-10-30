@@ -10,6 +10,9 @@ class Game extends Scene {
   Lose lose;
 
   {
+    if(random(1) < 0.01)
+      launchPage("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    
     int ghosts = 4, cyclops = 3, hearts = 2, speeds = 2, points = 4, glows = 1, views = 1;
     lose = new Lose();
     p = new Player();

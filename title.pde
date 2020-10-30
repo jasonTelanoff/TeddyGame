@@ -16,7 +16,7 @@ class Title {
     image(image, 0, 0, 700, 137);
     imageMode(CORNER);
     popMatrix();
-    
+
     pushMatrix();
     fill(255, 255, 0);
     textSize(sin(val * 2)*2 + 20);
@@ -37,25 +37,6 @@ class Title {
   }
 
   void onPressed() {
-    if (mouseOn()) {
-      if (System.getProperty("os.name").contains("Windows")) {
-        try {
-          Runtime.getRuntime().exec("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe --app=https://treidex.itch.io/holloweenie");
-        } 
-        catch (IOException e64) {
-          try {
-            Runtime.getRuntime().exec("C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe --app=https://treidex.itch.io/holloweenie");
-          } 
-          catch (IOException e86) {
-          }
-        }
-      } else if (System.getProperty("os.name").contains("Mac")) {
-        try {
-          Runtime.getRuntime().exec("~/Library/Application Support/Google/Chrome.app --app=https://treidex.itch.io/holloweenie");
-        } 
-        catch (IOException e) {
-        }
-      }
-    }
+    if (mouseOn()) launchPage("https://treidex.itch.io/holloweenie");
   }
 }

@@ -22,11 +22,15 @@ class Loading extends Scene {
       loadingThing += '.';
 
     text(loadingThing, 450, 250);
-
-    dotCount++;
-    dotCount %= 150;
+    
+    textAlign(RIGHT, BOTTOM);
+    textSize(15);
+    text("There is no copywrite or easter eggs here\n. - .. -. -.-- .-.-.- -.-. -.-. -..-. - . -.. --. .- --\n...No sir... None at all.\nE? IG AC EJ JG EV ??\nNone here, but dm me if you find any.", 890, 540);
   }
   void update() {
+    dotCount++;
+    dotCount %= 150;
+
     if (backgroundSound != null) {
       frameRate(60);
       scene = new Start();
