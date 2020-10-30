@@ -25,7 +25,7 @@ class Loading extends Scene {
     
     textAlign(RIGHT, BOTTOM);
     textSize(15);
-    text("There is no copywrite or easter eggs here\n. - .. -. -.-- .-.-.- -.-. -.-. -..-. - . -.. --. .- --\n...No sir... None at all.\nE? IG AC EJ JG EV ??\nNone here, but dm me if you find any.", 890, 540);
+    text("- .. -. -.-- .-.-.- -.-. -.-. -..-. - . -.. --. .- --", 890, 540);
   }
   void update() {
     dotCount++;

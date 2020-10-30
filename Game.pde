@@ -13,6 +13,9 @@ class Game extends Scene {
     if(random(1) < 0.01)
       launchPage("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
     
+    backgroundSound.stop();
+    backgroundSound.loop();
+    
     int ghosts = 4, cyclops = 3, hearts = 2, speeds = 2, points = 4, glows = 1, views = 1;
     lose = new Lose();
     p = new Player();
@@ -375,12 +378,12 @@ class Game extends Scene {
     Cyclops() {
       vel = new PVector(0, 0);
       pos = new PVector(random(width), random(height));
-      damage = 47;
+      damage = 46;
       damDelay = 180;
       wid = 50;
       hei = 50;
       dieOnDam = false;
-      size = 35;
+      size = 30;
       speed = 1.8;
       vision = 140;
       totalFramesOff = 90;
@@ -515,7 +518,7 @@ class Game extends Scene {
 
     void onPickUp() {
       if (!sound.isPlaying()) sound.play();
-      p.health+= 8.8;
+      p.health+= 9;
       p.health = constrain(p.health, 0, 100);
       spawn();
     }
@@ -568,7 +571,7 @@ class Game extends Scene {
       animateRange = 64;
       speed = 8;
       image = loadImage("assets/point.png");
-      frames = 160;
+      frames = 120;
       spawn();
       sound = new SoundFile(TeddyGame.this, "time.wav");
     }
@@ -577,7 +580,7 @@ class Game extends Scene {
       if (!sound.isPlaying()) sound.play();
       framesLeft+= frames;
       if (frames > 90)
-        frames-= 8;
+        frames-= 6;
       //if(framesLeft > 600) framesLeft = 600;
       spawn();
     }
