@@ -2,10 +2,13 @@ class Title {
   PVector pos;
   PImage image;
   float val;
+  String text;
 
   {
     pos = new PVector(450, 120);
     image = loadImage("assets/title.png");
+    
+    text = random(100) < 1 ? "By Teddy" : "By Jason";
   }
 
   void show() {
@@ -22,7 +25,7 @@ class Title {
     textSize(sin(val * 2)*2 + 20);
     translate(pos.x + 330, pos.y + 60);
     rotate(-0.3 + cos(val)/8);
-    text("By Jason", 0, 0);
+    text(text, 0, 0);
     popMatrix();
   }
 
