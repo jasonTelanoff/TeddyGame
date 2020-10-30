@@ -3,7 +3,7 @@ import processing.sound.*;
 Scene scene;
 boolean w = false, a = false, s = false, d = false, sp = false, rs;
 
-SoundFile backgroundSound;
+SoundFile backgroundSound, backgroundGameMusic, tutorialMusic;
 
 void setup() {
   size(900, 550);
@@ -13,6 +13,8 @@ void setup() {
   background(0);
 
   new Thread() { public void run() {
+    backgroundGameMusic = new SoundFile(TeddyGame.this, "inGame.mp3");
+    tutorialMusic = new SoundFile(TeddyGame.this, "tutorial.mp3");
     backgroundSound = new SoundFile(TeddyGame.this, "startBackground.mp3");
   }}.start();
 

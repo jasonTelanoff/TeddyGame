@@ -14,7 +14,7 @@ class Game extends Scene {
       launchPage("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
     
     backgroundSound.stop();
-    backgroundSound.loop();
+    backgroundGameMusic.loop();
     
     int ghosts = 4, cyclops = 3, hearts = 2, speeds = 2, points = 4, glows = 1, views = 1;
     lose = new Lose();
@@ -71,7 +71,7 @@ class Game extends Scene {
 
     popMatrix();
 
-    //if (!dead) overlay();
+    if (!dead) overlay();
 
     if (glowing > 0)
       for (Entity e : entities)
@@ -655,6 +655,7 @@ class Game extends Scene {
     }
 
     void onPressed() {
+      backgroundGameMusic.stop();
       scene = new Game();
     }
   }

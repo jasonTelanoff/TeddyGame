@@ -8,6 +8,7 @@ class Tutorial extends Scene {
   Button backButton;
 
   {
+    tutorialMusic.loop();
     page = 0;
     p = new Player();
 
@@ -318,6 +319,7 @@ class Tutorial extends Scene {
         entities.set(0, new Cyclops());
         break;
       case 8:
+        tutorialMusic.stop();
         scene = new Start();
         break;
       }
@@ -528,6 +530,7 @@ class Tutorial extends Scene {
     }
 
     void onPressed() {
+      tutorialMusic.stop();
       scene = new Start();
     }
   }

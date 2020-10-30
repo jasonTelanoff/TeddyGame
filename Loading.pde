@@ -31,7 +31,7 @@ class Loading extends Scene {
     dotCount++;
     dotCount %= 150;
 
-    if (backgroundSound != null) {
+    if (backgroundSound != null && backgroundGameMusic != null && tutorialMusic != null) {
       frameRate(60);
       scene = new Start();
     }

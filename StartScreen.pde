@@ -110,6 +110,7 @@ class Start extends Scene {
     }
 
     void onPressed() {
+      backgroundSound.stop();
       scene = new Tutorial();
     }
   }
