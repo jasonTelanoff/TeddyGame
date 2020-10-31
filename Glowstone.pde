@@ -10,11 +10,13 @@ class Glowstone extends PowerUp {
       image = loadImage("assets/glowstone.png");
       pos = spawn(game.barriers);
       frames = 120;
-      sound = loadSound("glow.wav");
+      sound = "glow.wav";
     }
 
     void onPickUp() {
-      if (!sound.isPlaying()) sound.start();
+      //if (!sound.isPlaying())
+      playSound(sound);
+      playSound();
       ((Game) game).glowing = frames;
       extraValue = 0;
       framesIn = 0;

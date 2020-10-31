@@ -1,6 +1,7 @@
 class SpeedBoost extends PowerUp {
     float wid2, hei2, newSpeed = 5;
     int framesLeft;
+    boolean hasPlayedSound;
 
     SpeedBoost(GameScene game) {
       this.game = game;
@@ -14,12 +15,18 @@ class SpeedBoost extends PowerUp {
       pos = spawn(game.barriers);
       wid2 = 30;
       hei2 = 30;
-      sound = loadSound("speed.wav");
+      sound = "speed.wav";
+      hasPlayedSound = false;
     }
 
     void onPickUp() {
       if (framesLeft > 0) {
-        if (!sound.isPlaying()) sound.start();
+        //if (!sound.isPlaying())
+        if (!hasPlayedSound) {
+          playSound(sound);
+          hasPlayedSound = true;
+        }
+        playSound();
         framesLeft--;
         wid2-= 0.2;
         hei2-= 0.2;
@@ -36,6 +43,7 @@ class SpeedBoost extends PowerUp {
         extraValue = 0;
         framesIn = 0;
         pos = spawn(game.barriers);
+        hasPlayedSound = false;
       }
     }
   }

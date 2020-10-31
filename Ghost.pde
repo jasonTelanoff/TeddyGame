@@ -15,11 +15,11 @@ class Ghost extends Enemy {
       size = 20;
       speed = 1.3;
       vision = 200;
-      totalFramesOff = 180;
+      totalFramesOff = 250;
       oVal = random(TWO_PI);
       image = loadImage("assets/ghostRight.png");
       imageLeft = loadImage("assets/ghostLeft.png");
-      attackSound = loadSound("ghost_attack.wav");
+      attackSound = "ghost_attack.wav";
     }
 
     void show() {

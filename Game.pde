@@ -176,7 +176,7 @@ class Game extends GameScene {
     }
 
     void onPressed() {
-      backgroundGameMusic.stop();
+      //backgroundGameMusic.stop();
       scene = new Game();
     }
   }

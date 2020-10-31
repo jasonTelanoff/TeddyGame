@@ -3,7 +3,7 @@ class PowerUp extends Entity {
     int pickUpRange = 20, animateRange, framesIn;
     float extraHeight, extraValue = 0, speed;
     boolean animating;
-    Sound sound;
+    String sound;
 
     {
       glowCol = color(255, 255, 0);

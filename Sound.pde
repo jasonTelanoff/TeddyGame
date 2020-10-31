@@ -64,6 +64,26 @@ synchronized void loadSound(final String path) {
   }
 }
 
+synchronized void playSound(final String path) {
+  try {
+    println("loading " + path + "...");
+
+    //if (!AudioSystem.getClip().isRunning()) {
+      AudioInputStream audioIn = AudioSystem.getAudioInputStream(createInput(path));
+      Clip c = AudioSystem.getClip();
+      c.open(audioIn);
+      c.start();
+    //}
+
+    println("loaded " + path);
+  } 
+  catch (Exception e) {
+    println("Error opening sound file '" + path + "':");
+    e.printStackTrace();
+    exit();
+  }
+}
+
 synchronized void playSound() {
   try {
     AudioSystem.getClip().start();
@@ -73,6 +93,8 @@ synchronized void playSound() {
   }
 }
 
-synchronized void stopSound() {}
+synchronized void stopSound() {
+}
 
-synchronized void loopSound() {}
+synchronized void loopSound() {
+}

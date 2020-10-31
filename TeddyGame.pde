@@ -5,6 +5,8 @@ boolean w = false, a = false, s = false, d = false, sp = false, rs;
 int kbc;
 boolean bkbc;
 
+boolean debug = false;
+
 SoundFile backgroundSound, backgroundGameMusic, tutorialMusic;
 
 void setup() {

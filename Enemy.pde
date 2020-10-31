@@ -5,7 +5,7 @@ class Enemy extends Entity {
     boolean dieOnDam, facingRight;
     PImage imageLeft;
     GameScene game;
-    Sound attackSound;
+    String attackSound;
 
     {
       glowCol = color(255, 0, 0);
@@ -41,7 +41,8 @@ class Enemy extends Entity {
       if (dieOnDam)
         game.entities.remove(this);
       else if (frFromLast == damDelay) {
-        attackSound.start();
+        playSound(attackSound);
+        playSound();
         game.p.takeDamage(damage);
         frFromLast = 0;
       }

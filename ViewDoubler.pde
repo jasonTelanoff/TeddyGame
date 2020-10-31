@@ -10,11 +10,13 @@ class DoubleView extends PowerUp {
       image = loadImage("assets/view.png");
       pos = spawn(game.barriers);
       frames = 120;
-      sound = loadSound("view.wav");
+      sound = "view.wav";
     }
 
     void onPickUp() {
-      if (!sound.isPlaying()) sound.start();
+      //if (!sound.isPlaying())
+      playSound(sound);
+      playSound();
       ((Game) game).framesView = frames;
       extraValue = 0;
       framesIn = 0;

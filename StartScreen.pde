@@ -108,7 +108,7 @@ class Start extends GameScene {
     }
 
     void onPressed() {
-      backgroundSound.stop();
+      //backgroundSound.stop();
       scene = new Tutorial();
     }
   }
