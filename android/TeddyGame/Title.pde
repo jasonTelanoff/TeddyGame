@@ -20,7 +20,7 @@ class Title {
     pushMatrix();
     fill(255, 255, 0);
     textSize(sin(val * 2)*2 + 20);
-    translate((pos.x + 330) * sF, (pos.y + 60) * sF);
+    translate(pos.x + 330 * sF, pos.y + 60 * sF);
     rotate(-0.3 + cos(val)/8);
     text("By Jason", 0, 0);
     popMatrix();

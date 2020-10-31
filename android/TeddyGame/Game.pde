@@ -120,11 +120,20 @@ class Game extends GameScene {
   }
 
   void onPressed() {
+    boolean joystick = true;
     for (Button b : buttons)
-      if (b.mouseOn())
+      if (b.mouseOn()) {
+        joystick = false;
         b.onPressed();
+      }
     if (dead)
       lose.onPressed();
+    else if (joystick)
+      p.joystick.pos = new PVector(mouseX, mouseY);
+  }
+
+  void onReleased() {
+    p.joystick.reset();
   }
 
   void overlay() {

@@ -1,4 +1,5 @@
 class Player extends Entity {
+  Joystick joystick;
   int attackRad, framesToHeal, totalHeal;
   float health, power, speed, normSpeed = 3.5, boostSpeed = 5;
   boolean attacking, facingRight, speedBoost;
@@ -6,6 +7,7 @@ class Player extends Entity {
   SoundFile walk;
 
   Player(GameScene game, int x, int y) {
+    joystick = new Joystick(height/4 + 20, 7*height/8 - 20, height/4);
     pos = new PVector(x, y);
     wid = 40;
     hei = 40;
@@ -30,10 +32,13 @@ class Player extends Entity {
       strokeWeight(10);
       circle((pos.x + wid/2) * sF, (pos.y + hei/2) * sF, attackRad);
     }
+    
+    joystick.show();
   }
 
   void update() {
     speed = speedBoost?boostSpeed:normSpeed;
+    joystick.update();
 
     if (attacking) {
       if (power > 0) {
@@ -54,23 +59,10 @@ class Player extends Entity {
     power = constrain(power, 0, 100);
     health = constrain(health, 0, 100);
 
-    PVector vel = new PVector(0, 0);
-    if (w) vel.y-= speed;
-    if (a) {
-      vel.x-= speed;
-      facingRight = false;
-    }
-    if (s) vel.y+= speed;
-    if (d) {
-      vel.x+= speed;
-      facingRight = true;
-    }
-    if (sp && power == 100) attack();
-
-    if (vel.mag() > 0)
+    if (joystick.vel.mag() > 0)
       if (!walk.isPlaying() && random(1) < 0.07)
         walk.play();
-    pos = playerMovement(pos, vel, speed, wid, hei, game.barriers);
+    pos = playerMovement(pos, joystick.vel.mult(speed), speed, wid, hei, game.barriers);
   }
 
   void attack() {

@@ -2,6 +2,7 @@ abstract class Scene {
   abstract void show();
   abstract void update();
   abstract void onPressed();
+  void onReleased() {}
 }
 
 class GameScene extends Scene {
