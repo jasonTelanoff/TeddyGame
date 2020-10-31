@@ -21,14 +21,14 @@ class Player extends Entity {
 
   void show() {
     if (facingRight)
-      image(image, pos.x, pos.y, wid, hei);
-    else image(imageLeft, pos.x, pos.y, wid, hei);
+      image(image, pos.x * sF, pos.y * sF, wid * sF, hei * sF);
+    else image(imageLeft, pos.x * sF, pos.y * sF, wid * sF, hei * sF);
 
     if (attacking) {
       stroke(90, 170, 255, 100);
       noFill();
       strokeWeight(10);
-      circle(pos.x + wid/2, pos.y + hei/2, attackRad);
+      circle((pos.x + wid/2) * sF, (pos.y + hei/2) * sF, attackRad);
     }
   }
 

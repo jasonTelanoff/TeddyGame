@@ -11,14 +11,14 @@ class Lose {
   void show(float frames) {
     fill(100, 200);
     noStroke();
-    rect(200, 130, 500, 300, 50);
+    rect(200 * sF, 130 * sF, 500 * sF, 300 * sF, 50);
     textAlign(CENTER, TOP);
     textSize(50);
     fill(255);
     // Add different messages
-    text("Game Over", 450, 150);
+    text("Game Over", 450 * sF, 150 * sF);
     textSize(30);
-    text("You survived for " + (frames/60 + "00000").substring(0, 5) + " seconds", 450, 210);
+    text("You survived for " + (frames/60 + "00000").substring(0, 5) + " seconds", 450 * sF, 210 * sF);
 
     for (Button b : buttons)
       b.show();
@@ -47,7 +47,6 @@ class Lose {
     }
 
     void onPressed() {
-      backgroundGameMusic.stop();
       scene = new Game();
     }
   }
@@ -64,7 +63,6 @@ class Lose {
     }
 
     void onPressed() {
-      backgroundGameMusic.stop();
       scene = new Start();
     }
   }

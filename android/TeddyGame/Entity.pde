@@ -13,11 +13,11 @@ class Entity {
     noFill();
     stroke(glowCol);
     strokeWeight(1);
-    rect(pos.x, pos.y + 50, wid, hei);
+    rect(pos.x * sF, (pos.y + 50) * sF, wid * sF, hei * sF);
   }
   PVector spawn(ArrayList<Barrier> barriers) {    
-    int x = 50 * ((int) (random(width - 50)/50));
-    int y = 50 * ((int) (random(height - 100)/50));
+    int x = 50 * ((int) (random(850)/50));
+    int y = 50 * ((int) (random(450)/50));
 
     for (Barrier b : barriers)
       if (b.x == x && b.y == y) {
@@ -48,8 +48,8 @@ PVector playerMovement(PVector pos, PVector vel, float speed, int wid, int hei, 
       else if (pos.y < b.y + 50 && pos.y + hei > b.y + 50) 
         pos.y = b.y + 50;
 
-  pos.x = constrain(pos.x, 0, width - wid);
-  pos.y = constrain(pos.y, 0, height - hei - 50);
+  pos.x = constrain(pos.x, 0, (900 * sF) - wid);
+  pos.y = constrain(pos.y, 0, (550 * sF) - hei - 50);
 
   return pos;
 }

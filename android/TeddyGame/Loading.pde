@@ -12,7 +12,7 @@ class Loading extends Scene {
 
   void show() {
     background(0);
-    image(background, 0, 0, width, height);
+    image(background, 0, 0, 900 * sF, 550 * sF);
 
     title.show();
 
@@ -23,20 +23,15 @@ class Loading extends Scene {
     for (int d = -1; d < dotCount; d++)
       loadingThing += '.';
 
-    text(loadingThing, 450, 250);
-    
+    text(loadingThing, 450 * sF, 250 * sF);
+
     textAlign(RIGHT, BOTTOM);
     textSize(15);
-    text("- .. -. -.-- .-.-.- -.-. -.-. -..-. - . -.. --. .- --", 890, 540);
+    text("- .. -. -.-- .-.-.- -.-. -.-. -..-. - . -.. --. .- --", 890 * sF, 540 * sF);
   }
   void update() {
     dotCount++;
     dotCount %= 3;
-
-    if (backgroundSound != null && backgroundGameMusic != null && tutorialMusic != null) {
-      frameRate(60);
-      scene = new Start();
-    }
   }
   void onPressed() {
     title.onPressed();

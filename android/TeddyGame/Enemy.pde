@@ -13,9 +13,9 @@ class Enemy extends Entity {
 
     void show() {
       if (facingRight)
-        image(image, pos.x, pos.y, wid, hei);
+        image(image, pos.x * sF, pos.y * sF, wid * sF, hei * sF);
       else
-        image(imageLeft, pos.x, pos.y, wid, hei);
+        image(imageLeft, pos.x * sF, pos.y * sF, wid * sF, hei * sF);
     }
 
     void update() {

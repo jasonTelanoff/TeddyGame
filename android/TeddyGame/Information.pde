@@ -14,7 +14,7 @@ class Information extends GameScene {
 
   void show() {
     background(0);
-    image(background, 0, 0, width, height);
+    image(background, 0, 0, 900 * sF, 550 * sF);
 
     for (Entity e : entities)
       e.show();
@@ -64,7 +64,7 @@ class Information extends GameScene {
     if (backButton.mouseOn())
       backButton.onPressed();
     else if (credits) {
-      if (!yt && mouseX > 500 && mouseX < 720 && mouseY > 275 && mouseY < 325) {
+      if (!yt && (mouseX - leftPadding) > 500 && (mouseX - leftPadding) < 720 && mouseY > 275 && mouseY < 325) {
         if (animating) {
           if (clicks < 3)
             clicks++;
@@ -83,10 +83,10 @@ class Information extends GameScene {
         } else
           scene = new Start();
       }
-    } else if (mouseX > 530 && mouseX < 640 && mouseY > 145 && mouseY < 185) {
+    } else if ((mouseX - leftPadding) > 530 && (mouseX - leftPadding) < 640 && mouseY > 145 && mouseY < 185) {
       if (entities.size() < maxEntities)
         entities.add(new Ghost(this));
-    } else if (mouseX > 385 && mouseX < 500 && mouseY > 190 && mouseY < 230) {
+    } else if ((mouseX - leftPadding) > 385 && (mouseX - leftPadding) < 500 && mouseY > 190 && mouseY < 230) {
       if (entities.size() < maxEntities)
         entities.add(new Cyclops(this));
     } else credits = true;

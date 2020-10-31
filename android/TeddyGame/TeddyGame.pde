@@ -2,39 +2,40 @@ import processing.sound.*;
 
 Scene scene;
 boolean w = false, a = false, s = false, d = false, sp = false, rs;
-int kbc, sF, leftPadding;
+int kbc, leftPadding;
+float sF;
 boolean bkbc;
 
-SoundFile backgroundSound, backgroundGameMusic, tutorialMusic;
-
 void setup() {
-  fullScreen();
   orientation(LANDSCAPE);
-  frameRate(30);
+  frameRate(60);
   noSmooth();
-
-  sF = height/550;
-  leftPadding = (width - sF*900)/2;
+  fullScreen();
+  
+  sF = ((float) height)/((float) 550);
+  leftPadding = (int) (width - sF*900)/2;
 
   background(0);
 
-  new Thread() { 
-    public void run() {
-      backgroundGameMusic = new SoundFile(TeddyGame.this, "inGame.mp3");
-      tutorialMusic = new SoundFile(TeddyGame.this, "tutorial.mp3");
-      backgroundSound = new SoundFile(TeddyGame.this, "startBackground.mp3");
-    }
-  }
-  .start();
+  //new Thread() { 
+  //  public void run() {
+  //    backgroundGameMusic = new SoundFile(TeddyGame.this, "inGame.mp3");
+  //    tutorialMusic = new SoundFile(TeddyGame.this, "tutorial.mp3");
+  //    backgroundSound = new SoundFile(TeddyGame.this, "startBackground.mp3");
+  //  }
+  //}
+  //.start();
 
-  scene = new Loading();
-  scene.show();
+  scene = new Start();
 }
 
 void draw() {
   scene.update();
+
+  pushMatrix();
   translate(leftPadding, 0);
   scene.show();
+  popMatrix();
 }
 
 void mousePressed() {
@@ -99,7 +100,6 @@ void keyPressed() {
 
     break;
   default:
-    println(keyCode);
     kbc = 0;
   }
 }

@@ -18,7 +18,7 @@ class Button {
   }
 
   boolean mouseOn() {
-    return mouseX/sF > x - wid/2 && mouseX/sF < x + wid/2 && mouseY/sF > y - hei/2 && mouseY/sF < y + hei/2;
+    return (mouseX - leftPadding)/sF > x - wid/2 && (mouseX - leftPadding)/sF < x + wid/2 && mouseY/sF > y - hei/2 && mouseY/sF < y + hei/2;
   }
 
   void onPressed() {

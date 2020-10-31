@@ -6,7 +6,7 @@ class Ghost extends Enemy {
       this.game = game;
       vel = new PVector(0, 0);
       TEDDYISDUMB = new PVector(0, 0);
-      pos = new PVector(random(width), random(height));
+      pos = new PVector(random(900), random(550));
       damage = 6.3;
       damDelay = 60;
       wid = 35;
@@ -27,9 +27,9 @@ class Ghost extends Enemy {
       else tint(255, 100*sin(oVal) + 80);
 
       if (facingRight)
-        image(image, pos.x, pos.y, wid, hei);
+        image(image, pos.x * sF, pos.y * sF, wid * sF, hei * sF);
       else
-        image(imageLeft, pos.x, pos.y, wid, hei);
+        image(imageLeft, pos.x * sF, pos.y * sF, wid * sF, hei * sF);
 
       noTint();
 
@@ -41,7 +41,7 @@ class Ghost extends Enemy {
     void defMove() {
       if (target == null || framesSiceTarget == 0 || dist(pos.x, pos.y, target.x, target.y) < 100) {
         framesSiceTarget = 180;
-        target = new PVector(random(width), random(height));
+        target = new PVector(random(900), random(550));
       } else framesSiceTarget--;
       PVector acc = PVector.sub(target, PVector.add(pos, new PVector(wid/2, hei/2))).setMag(5);
       TEDDYISDUMB.add(PVector.random2D());

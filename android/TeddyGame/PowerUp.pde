@@ -11,8 +11,8 @@ class PowerUp extends Entity {
 
     void show() {
       pushMatrix();
-      translate(0, -extraHeight - 3);
-      image(image, pos.x, pos.y, wid, hei);
+      translate(0, (-extraHeight - 3) * sF);
+      image(image, pos.x * sF, pos.y * sF, wid * sF, hei * sF);
       popMatrix();
     }
 

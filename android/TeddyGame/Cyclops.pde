@@ -4,7 +4,7 @@ class Cyclops extends Enemy {
   Cyclops(GameScene game) {
     this.game = game;
     vel = new PVector(0, 0);
-    pos = new PVector(random(width), random(height));
+    pos = new PVector(random(900), random(550));
     damage = 46;
     damDelay = 180;
     wid = 50;
@@ -22,7 +22,7 @@ class Cyclops extends Enemy {
   void defMove() {
     if (target == null || framesSiceTarget == 0 || dist(pos.x, pos.y, target.x, target.y) < 100) {
       framesSiceTarget = 180;
-      target = new PVector(random(width), random(height));
+      target = new PVector(random(900), random(550));
     } else framesSiceTarget--;
     vel = PVector.sub(target, pos);
     vel.setMag(constrain(vel.mag(), 0, speed/3));

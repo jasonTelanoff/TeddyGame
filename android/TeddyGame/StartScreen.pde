@@ -7,8 +7,6 @@ class Start extends GameScene {
     int ghosts = 10, cyclops = 6, hearts = 3, speeds = 3, points = 3, glows = 2, views = 2;
     background = loadImage("assets/startBackground.png");
 
-    if (!backgroundSound.isPlaying()) backgroundSound.loop();
-
     title = new Title();
 
     for (int y = 0; y < 10; y++)
@@ -47,7 +45,7 @@ class Start extends GameScene {
 
   void show() {
     background(0);
-    image(background, 0, 0, 550 * sF, 900 * sF);
+    image(background, 0, 0, 900 * sF, 550 * sF);
 
     for (Barrier b : barriers)
       b.show();
@@ -92,7 +90,6 @@ class Start extends GameScene {
     }
 
     void onPressed() {
-      backgroundSound.stop();
       scene = new Game();
     }
   }
@@ -109,7 +106,6 @@ class Start extends GameScene {
     }
 
     void onPressed() {
-      backgroundSound.stop();
       scene = new Tutorial();
     }
   }

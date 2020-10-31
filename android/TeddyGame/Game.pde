@@ -10,10 +10,6 @@ class Game extends GameScene {
     if (random(1) < 0.05)
       launchPage("https:www.youtube.com/watch?v=dQw4w9WgXcQ");
 
-    backgroundSound.stop();
-    backgroundGameMusic.stop();
-    backgroundGameMusic.loop();
-
     int ghosts = 4, cyclops = 3, hearts = 2, speeds = 2, points = 4, glows = 1, views = 1;
     lose = new Lose();
     p = new Player(this, 5, 5);
@@ -52,10 +48,10 @@ class Game extends GameScene {
 
   void show() {
     background(0);
-    image(background, 0, 0, width, height);
+    image(background, 0, 0, 900 * sF, 550 * sF);
 
     pushMatrix();
-    translate(0, 50);
+    translate(0, 50 * sF);
     for (Barrier b : barriers)
       b.show();
 
@@ -66,7 +62,7 @@ class Game extends GameScene {
 
     popMatrix();
 
-    if (!dead) overlay();
+    //if (!dead) overlay();
 
     if (glowing > 0)
       for (Entity e : entities)
@@ -74,22 +70,22 @@ class Game extends GameScene {
 
     noStroke();
     fill(90, 170, 255);
-    rect(30, 10, p.power * 3, 30);
+    rect(30 * sF, 10 * sF, (p.power * 3) * sF, 30 * sF);
 
     fill(255, 30, 30);
-    rect(470, 10, p.health * 3, 30);
+    rect(470 * sF, 10 * sF, (p.health * 3) * sF, 30 * sF);
 
     stroke(50);
     strokeWeight(5);
     noFill();
-    rect(30, 10, 300, 30);
-    rect(470, 10, 300, 30);
+    rect(30 * sF, 10 * sF, 300 * sF, 30 * sF);
+    rect(470 * sF, 10 * sF, 300 * sF, 30 * sF);
 
     noStroke();
     fill(255);
-    textSize(40);
+    textSize(40 * sF);
     textAlign(CENTER, TOP);
-    text(((float) framesLeft/60 + "0000").substring(0, 4), 400, 5);
+    text(((float) framesLeft/60 + "0000").substring(0, 4), 400 * sF, 5 * sF);
 
     for (Button b : buttons)
       b.show();
@@ -163,11 +159,11 @@ class Game extends GameScene {
     PImage image;
 
     void show() {
-      if (mouseOn()) image(image, x - 5, 5, 40, 40);
-      else image(image, x, 10, 30, 30);
+      if (mouseOn()) image(image, (x - 5) * sF, 5 * sF, 40 * sF, 40 * sF);
+      else image(image, x * sF, 10 * sF, 30 * sF, 30 * sF);
     }
     boolean mouseOn() {
-      return mouseX > x - 10 && mouseX < x + 40 && mouseY > 0 && mouseY < 50;
+      return (mouseX - leftPadding)/sF > x - 10 && (mouseX - leftPadding)/sF < x + 40 && mouseY/sF > 0 && mouseY/sF < 50;
     }
   }
 
@@ -178,7 +174,6 @@ class Game extends GameScene {
     }
 
     void onPressed() {
-      backgroundGameMusic.stop();
       scene = new Game();
     }
   }

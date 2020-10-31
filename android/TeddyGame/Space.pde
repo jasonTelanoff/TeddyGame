@@ -25,6 +25,6 @@ class Barrier {
   } 
 
   void show() {
-    image(image, x, y, 50, 50);
+    image(image, x * sF, y * sF, 50 * sF, 50 * sF);
   }
 }
