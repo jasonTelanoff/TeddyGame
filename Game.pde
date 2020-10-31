@@ -2,7 +2,7 @@ class Game extends Scene {
   Player p;
   ArrayList<Entity> entities = new ArrayList<Entity>();
   ArrayList<Button> buttons = new ArrayList<Button>();
-  Space[][] spaces;
+  ArrayList<Barrier> barriers = new ArrayList<Barrier>();
   int framesAlive = 0, framesLeft = 600, glowing;
   float viewDist = 150;
   PImage background;
@@ -10,25 +10,22 @@ class Game extends Scene {
   Lose lose;
 
   {
-    if(random(1) < 0.01)
+    if (random(1) < 0.01)
       launchPage("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
-    
+
     backgroundSound.stop();
     backgroundGameMusic.loop();
-    
+
     int ghosts = 4, cyclops = 3, hearts = 2, speeds = 2, points = 4, glows = 1, views = 1;
     lose = new Lose();
     p = new Player();
     background = loadImage("assets/background.png");
 
-    spaces = new Space[height/50 - 1][width/50];
-
-    for (int y = 0; y < spaces.length; y++)
-      for (int x = 0; x < spaces[y].length; x++)
+    for (int y = 0; y < 10; y++)
+      for (int x = 0; x < 18; x++)
         if (y != 0 || x != 0)
-          spaces[y][x] = new Space(x * 50, y * 50, random(6) < 1);
-        else
-          spaces[y][x] = new Space(x * 50, y * 50, false);
+          if (random(6) < 1)
+            barriers.add(new Barrier(x * 50, y * 50));
 
     for (int i = 0; i < ghosts; i++)
       entities.add(new Ghost());
@@ -60,9 +57,8 @@ class Game extends Scene {
 
     pushMatrix();
     translate(0, 50);
-    for (int y = 0; y < spaces.length; y++)
-      for (int x = 0; x < spaces[y].length; x++)
-        spaces[y][x].show();
+    for (Barrier b : barriers)
+      b.show();
 
     for (Entity e : entities)
       e.show();
@@ -215,7 +211,7 @@ class Game extends Scene {
       if (vel.mag() > 0)
         if (!walk.isPlaying() && random(1) < 0.07)
           walk.play();
-      pos = playerMovement(vel, speed, this, spaces);
+      pos = playerMovement(pos, vel, speed, wid, hei, barriers);
     }
 
     void attack() {
@@ -269,13 +265,15 @@ class Game extends Scene {
     }
 
     void spawn() {    
-      int x = (int) random(width - 50)/50;
-      int y = (int) random(height - 100)/50;
+      int x = 50 * (int) random(width - 50)/50;
+      int y = 50 * (int) random(height - 100)/50;
 
-      if (!spaces[y][x].collision) {
-        pos = new PVector(x*50 + (50 - wid)/2, y*50 + (50 - hei)/2);
-      } else
-        spawn();
+      for (Barrier b : barriers)
+        if (b.x == x && b.y == y) {
+          spawn();
+          return;
+        }
+      pos = new PVector(x*50 + (50 - wid)/2, y*50 + (50 - hei)/2);
     }
 
     void collided() {
@@ -399,7 +397,7 @@ class Game extends Scene {
       } else framesSiceTarget--;
       vel = PVector.sub(target, pos);
       vel.setMag(constrain(vel.mag(), 0, speed/3));
-      pos = playerMovement(vel, speed, this, spaces);
+      pos = playerMovement(pos, vel, speed, wid, hei, barriers);
 
       facingRight = vel.x > 0;
     }
@@ -408,7 +406,7 @@ class Game extends Scene {
       target = null;
       vel = PVector.sub(p.pos, pos);
       vel.setMag(speed);
-      pos = playerMovement(vel, speed, this, spaces);
+      pos = playerMovement(pos, vel, speed, wid, hei, barriers);
 
       facingRight = vel.x > 0;
     }
@@ -460,10 +458,12 @@ class Game extends Scene {
       int x = (int) random(width - 50)/50;
       int y = (int) random(height - 100)/50;
 
-      if (!spaces[y][x].collision)
-        pos = new PVector(x*50 + (50 - wid)/2, y*50 + (50 - hei)/2);
-      else
-        spawn();
+      for (Barrier b : barriers)
+        if (b.x == x && b.y == y) {
+          spawn();
+          return;
+        }
+      pos = new PVector(x*50 + (50 - wid)/2, y*50 + (50 - hei)/2);
     }
 
     void show() {

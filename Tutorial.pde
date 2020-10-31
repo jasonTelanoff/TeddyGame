@@ -1,7 +1,7 @@
 class Tutorial extends Scene {
   int page;
   float viewDist = 150;
-  Space[][] spaces;
+  ArrayList<Barrier> barriers = new ArrayList<Barrier>();
   Player p;
   PImage background;
   Slide slide;
@@ -12,14 +12,11 @@ class Tutorial extends Scene {
     page = 0;
     p = new Player();
 
-    spaces = new Space[height/50 - 1][width/50];
-
-    for (int y = 0; y < spaces.length; y++)
-      for (int x = 0; x < spaces[y].length; x++)
-        if ((y != 0 || x != 0) && (y != 5 || x != 3))
-          spaces[y][x] = new Space(x * 50, y * 50, random(10) < 1);
-        else
-          spaces[y][x] = new Space(x * 50, y * 50, false);
+    for (int y = 0; y < 10; y++)
+      for (int x = 0; x < 18; x++)
+        if (y != 0 || x != 0)
+          if (random(6) < 1)
+            barriers.add(new Barrier(x * 50, y * 50));
 
     background = loadImage("assets/background.png");
 
@@ -64,9 +61,8 @@ class Tutorial extends Scene {
       pushMatrix();
       translate(0, 50);
       if (thing > 0)
-        for (int y = 0; y < spaces.length; y++)
-          for (int x = 0; x < spaces[y].length; x++)
-            spaces[y][x].show();
+        for (Barrier b : barriers)
+          b.show();
 
       for (Entity e : entities)
         e.show();
@@ -173,10 +169,12 @@ class Tutorial extends Scene {
         int x = (int) random(700)/50;
         int y = (int) random(100, 450)/50;
 
-        if (!spaces[y][x].collision)
-          pos = new PVector(x*50 + (50 - wid)/2, y*50 + (50 - hei)/2);
-        else
+        for (Barrier b : barriers)
+        if (b.x == x && b.y == y) {
           spawn();
+          return;
+        }
+      pos = new PVector(x*50 + (50 - wid)/2, y*50 + (50 - hei)/2);
       }
 
       void show() {
@@ -503,11 +501,12 @@ class Tutorial extends Scene {
       }
       if (sp && power == 100) attack();
 
+      pos = playerMovement(pos, vel, speed, wid, hei, barriers);
+
       if (vel.mag() > 0)
         if (!walk.isPlaying() && random(1) < 0.07) {
           walk.play();
         }
-      pos = playerMovement(vel, speed, this, spaces);
     }
 
     void attack() {

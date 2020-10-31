@@ -2,23 +2,22 @@ class Start extends Scene {
   PImage background;
   ArrayList<Entity> entities = new ArrayList<Entity>();
   ArrayList<Button> buttons = new ArrayList<Button>();
-  Space[][] spaces;
+  ArrayList<Barrier> barriers = new ArrayList<Barrier>();
   Title title;
 
   Start() {
     int ghosts = 10, cyclops = 6, hearts = 3, speeds = 3, points = 3, glows = 2, views = 2;
     background = loadImage("assets/startBackground.png");
-    
-    if(!backgroundSound.isPlaying()) backgroundSound.loop();
-    
+
+    if (!backgroundSound.isPlaying()) backgroundSound.loop();
+
     title = new Title();
 
-    spaces = new Space[height/50][width/50];
-
-
-    for (int y = 0; y < spaces.length; y++)
-      for (int x = 0; x < spaces[y].length; x++)
-        spaces[y][x] = new Space(x * 50, y * 50, random(6) < 1);
+    for (int y = 0; y < 10; y++)
+      for (int x = 0; x < 18; x++)
+        if (y != 0 || x != 0)
+          if (random(6) < 1)
+            barriers.add(new Barrier(x * 50, y * 50));
 
     for (int i = 0; i < ghosts; i++)
       entities.add(new Ghost());
@@ -49,9 +48,8 @@ class Start extends Scene {
   void show() {
     background(background);
 
-    for (int y = 0; y < spaces.length; y++)
-      for (int x = 0; x < spaces[y].length; x++)
-        spaces[y][x].show();
+    for (Barrier b : barriers)
+      b.show();
 
     for (Entity e : entities)
       e.show();
@@ -68,7 +66,7 @@ class Start extends Scene {
 
   void update() {
     title.update();
-    
+
     for (Entity e : entities)
       e.update();
   }
@@ -158,10 +156,12 @@ class Start extends Scene {
       int x = (int) random(width - 50)/50;
       int y = (int) random(height - 100)/50;
 
-      if (!spaces[y][x].collision)
-        pos = new PVector(x*50 + (50 - wid)/2, y*50 + (50 - hei)/2);
-      else
-        spawn();
+      for (Barrier b : barriers)
+        if (b.x == x && b.y == y) {
+          spawn();
+          return;
+        }
+      pos = new PVector(x*50 + (50 - wid)/2, y*50 + (50 - hei)/2);
     }
 
     void defMove() {
@@ -230,7 +230,7 @@ class Start extends Scene {
       if (target == null || dist(pos.x, pos.y, target.x, target.y) < 100) target = new PVector(random(width), random(height));
       vel = PVector.sub(target, pos);
       vel.setMag(constrain(vel.mag(), 0, speed/3));
-      pos = playerMovement(vel, speed, this, spaces);
+      pos = playerMovement(pos, vel, speed, wid, hei, barriers);
 
       facingRight = vel.x > 0;
     }
@@ -248,10 +248,12 @@ class Start extends Scene {
       int x = (int) random(width - 50)/50;
       int y = (int) random(height - 100)/50;
 
-      if (!spaces[y][x].collision)
-        pos = new PVector(x*50 + (50 - wid)/2, y*50 + (50 - hei)/2);
-      else
-        spawn();
+      for (Barrier b : barriers)
+        if (b.x == x && b.y == y) {
+          spawn();
+          return;
+        }
+      pos = new PVector(x*50 + (50 - wid)/2, y*50 + (50 - hei)/2);
     }
 
     void show() {

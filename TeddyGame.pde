@@ -6,6 +6,7 @@ boolean w = false, a = false, s = false, d = false, sp = false, rs;
 SoundFile backgroundSound, backgroundGameMusic, tutorialMusic;
 
 void setup() {
+  surface.setTitle("Teddy's Game");
   size(900, 550);
   frameRate(60);
   noSmooth();
@@ -23,8 +24,7 @@ void setup() {
 }
 
 void draw() {
-  surface.setTitle("Teddy's Game | FPS: " + frameRate);
-
+  //surface.setTitle("Teddy's Game | FPS: " + frameRate);
   scene.update();
   scene.show();
 }
