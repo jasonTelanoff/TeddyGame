@@ -72,6 +72,8 @@ class Start extends Scene {
   }
 
   void onPressed() {
+    //title.onPressed();
+	
     for (Button b : buttons)
       if (b.mouseOn())
         b.onPressed();
