@@ -141,20 +141,20 @@ class Game extends GameScene {
     float _y = p.pos.y + p.hei/2 + 50;
 
     loadPixels();
-    for (int y = (int) max(50, _y - viewDist); y < min(height, _y + viewDist); y++)
-      for (int x = (int) max(0, _x - viewDist); x < min(width, _x + viewDist); x++)
-        if (pixels[y*width + x] != color(255, 255, 0) &&
+    for (int y = (int) max(50 * sF, _y - viewDist); y < min(550 * sF, _y + viewDist); y++)
+      for (int x = (int) max(0, _x - viewDist); x < min(900 * sF, _x + viewDist); x++)
+        if (pixels[(int) (y*900 * sF + x)] != color(255, 255, 0) &&
           dist(_x, _y, x, y) > viewDist)
-          pixels[y*width + x] = color(0);
+          pixels[(int) (y*width + x)] = color(0);
     updatePixels();
 
     rectMode(CORNERS);
     fill(0);
     noStroke();
-    rect(0, 50, width, max(50, _y - viewDist));
-    rect(0, min(height, _y + viewDist), width, height);
-    rect(0, 50, max(0, _x - viewDist), height);
-    rect(_x + viewDist, 50, width, height);
+    rect(0, 50 * sF, width * sF, max(50, _y - viewDist) * sF);
+    rect(0, min(height, _y + viewDist) * sF, width * sF, height * sF);
+    rect(0, 50 * sF, max(0, _x - viewDist) * sF, height * sF);
+    rect((_x + viewDist) * sF, 50 * sF, width * sF, height * sF);
     rectMode(CORNER);
   }
 
