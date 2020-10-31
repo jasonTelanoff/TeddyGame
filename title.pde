@@ -37,6 +37,6 @@ class Title {
   }
 
   void onPressed() {
-    if (mouseOn()) launchPage("https://treidex.itch.io/holloweenie");
+    if (mouseOn()) launchPage("https:treidex.itch.io/holloweenie");
   }
 }

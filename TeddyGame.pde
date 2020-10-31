@@ -10,7 +10,7 @@ SoundFile backgroundSound, backgroundGameMusic, tutorialMusic;
 void setup() {
   surface.setTitle("Teddy's Game");
   size(900, 550);
-  frameRate(60);
+  frameRate(30);
   noSmooth();
 
   background(0);
@@ -71,27 +71,27 @@ void keyPressed() {
     rs = true;
     kbc = 0;
     break;
-  case 66: // B
+  case 66:  //B
     if (kbc == 8)
       kbc++;
 
     break;
-  case 37: // left
+  case 37:  //left
     if (kbc == 4 || kbc == 6)
       kbc++;
 
     break;
-  case 38: // up
+  case 38:  //up
     if (kbc == 0 || kbc == 1)
       kbc++;
 
     break;
-  case 39: // right
+  case 39:  //right
     if (kbc == 5 || kbc == 7)
       kbc++;
 
     break;
-  case 40: // down
+  case 40:  //down
     if (kbc == 2 || kbc == 3)
       kbc++;
 
