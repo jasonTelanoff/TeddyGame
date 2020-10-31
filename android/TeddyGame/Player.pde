@@ -32,7 +32,7 @@ class Player extends Entity {
       strokeWeight(10);
       circle((pos.x + wid/2) * sF, (pos.y + hei/2) * sF, attackRad);
     }
-    
+
     joystick.show();
   }
 
@@ -59,9 +59,11 @@ class Player extends Entity {
     power = constrain(power, 0, 100);
     health = constrain(health, 0, 100);
 
-    if (joystick.vel.mag() > 0)
+    if (joystick.vel.mag() > 0) {
       if (!walk.isPlaying() && random(1) < 0.07)
         walk.play();
+      facingRight = joystick.vel.x > 0;
+    }
     pos = playerMovement(pos, joystick.vel.mult(speed), speed, wid, hei, game.barriers);
   }
 

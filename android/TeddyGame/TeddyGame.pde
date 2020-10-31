@@ -12,7 +12,7 @@ void setup() {
   noSmooth();
   fullScreen();
   
-  sF = ((float) height)/((float) 550);
+  sF = ((float) height)/((float) 555);
   leftPadding = (int) (width - sF*900)/2;
 
   background(0);
