@@ -13,11 +13,11 @@ class Lose {
     noStroke();
     rect(200 * sF, 130 * sF, 500 * sF, 300 * sF, 50);
     textAlign(CENTER, TOP);
-    textSize(50);
+    textSize(50 * sF);
     fill(255);
     // Add different messages
     text("Game Over", 450 * sF, 150 * sF);
-    textSize(30);
+    textSize(30 * sF);
     text("You survived for " + (frames/60 + "00000").substring(0, 5) + " seconds", 450 * sF, 210 * sF);
 
     for (Button b : buttons)

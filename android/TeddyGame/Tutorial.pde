@@ -1,15 +1,15 @@
 class Tutorial extends GameScene {
+  Tutorial tut;
   int page;
   float viewDist = 150;
-  ArrayList<Barrier> barriers = new ArrayList<Barrier>();
-  Player p;
   PImage background;
   Slide slide;
   Button backButton;
 
   {
+    tut = this;
     page = 0;
-    p = new Player(Tutorial.this, 5, 5);
+    p = new Player(this, 5, 5);
 
     for (int y = 0; y < 10; y++)
       for (int x = 0; x < 18; x++)
@@ -41,8 +41,12 @@ class Tutorial extends GameScene {
       slide.onPressed();
   }
 
+  void onReleased() {
+    p.joystick.reset();
+  }
+
   class Slide {
-    ArrayList<Entity> entities = new ArrayList<Entity>();
+    NextButton nextButton;
     int thing = 0;
 
     void show() {
@@ -50,10 +54,18 @@ class Tutorial extends GameScene {
     void update() {
     }
     void onPressed() {
+      if (nextButton.mouseOn())
+        nextButton.onPressed();
+      else
+        p.joystick.pos = new PVector(mouseX, mouseY);
     }
   }
 
   class Slide1 extends Slide {
+    {
+      nextButton = new NextButton1(this);
+    }
+
     void show() {
       background(0);
       image(background, 0, 0, 900 * sF, 550 * sF);
@@ -63,9 +75,9 @@ class Tutorial extends GameScene {
       if (thing > 0)
         for (Barrier b : barriers)
           b.show();
-
-      for (Entity e : entities)
-        e.show();
+      
+      for (int i = entities.size() - 1; i >= 0; i--)
+        entities.get(i).show();
 
       p.show();
 
@@ -93,14 +105,14 @@ class Tutorial extends GameScene {
       if (thing > 6) {
         noStroke();
         fill(255);
-        textSize(40);
+        textSize(40 * sF);
         textAlign(CENTER, TOP);
         text("10.0", 400 * sF, 5 * sF);
       }
 
       fill(255);
       textAlign(LEFT, TOP);
-      textSize(20);
+      textSize(20 * sF);
       switch(thing) {
       case 0:
         text("This is your player,\nmove around with w-a-s-d.\nClick to continue.", 60 * sF, 50 * sF);
@@ -127,6 +139,8 @@ class Tutorial extends GameScene {
         text("This timer will show you how many seconds you have left.\nIt can be increased by collecting power ups.", 190 * sF, 60 * sF);
         break;
       }
+
+      nextButton.show();
     }
 
     void update() {
@@ -135,110 +149,16 @@ class Tutorial extends GameScene {
       for (int i = entities.size() - 1; i >= 0; i--)
         entities.get(i).update();
     }
-
-    void onPressed() {
-      switch(thing) {
-      case 2:
-        entities.add(new Heart());
-        thing++;
-        break;
-      case 3:
-        break;
-      case 4:
-        break;
-      case 5: 
-        break;
-      case 7:
-        entities.clear();
-        slide = new Slide2();
-        break;
-      default:
-        thing++;
-      }
-    }
-
-    class PowerUp extends Entity {
-      PVector vel;
-      int pickUpRange = 20, animateRange;
-      float extraHeight, extraValue = 0, speed;
-      boolean animating;
-
-      void spawn() {
-        vel = new PVector(0, 0);
-
-        int x = (int) random(700)/50;
-        int y = (int) random(100, 450)/50;
-
-        for (Barrier b : barriers)
-          if (b.x == x && b.y == y) {
-            spawn();
-            return;
-          }
-        pos = new PVector(x*50 + (50 - wid)/2, y*50 + (50 - hei)/2);
-      }
-
-      void show() {
-        pushMatrix();
-        translate(0, -extraHeight - 3);
-        image(image, pos.x * sF, pos.y * sF, wid * sF, hei * sF);
-        popMatrix();
-      }
-
-      void update() {
-        if (animating && distE(this, p) < pickUpRange) {
-          animating = false;
-          onPickUp();
-        } else if (distE(this, p) < animateRange) {
-          animating = true;
-          animate();
-        }
-
-        extraValue+= 0.06;
-        extraHeight = 5 * sin(extraValue);
-      }
-
-      void onPickUp() {
-      }
-
-      void animate() {
-        PVector acc = PVector.sub(PVector.add(p.pos, new PVector(p.wid/2, p.hei/2)), 
-          PVector.add(pos, new PVector(wid/2, hei/2))).setMag(5);
-
-        vel.add(acc);
-        vel.setMag(constrain(vel.mag(), 0, speed));
-        pos.add(vel);
-      }
-    }
-
-    class Heart extends PowerUp {
-      Heart() {
-        wid = 35;
-        hei = 35;
-        animateRange = 65;
-        speed = 3;
-        image = loadImage("assets/heart.png");
-        spawn();
-      }
-
-      void onPickUp() {
-        p.health+= 8.8;
-        p.health = constrain(p.health, 0, 100);
-
-        spawn();
-
-        if (thing == 4) {
-          thing++; 
-          entities.remove(this);
-        }
-        if (thing == 3) thing++;
-      }
-    }
   }
 
   /* ------------
    TWO
    ------------ */
   class Slide2 extends Slide {
+    {
+      nextButton = new NextButton2(this);
+    }
+
     void show() {
       background(0);
       image(background, 0, 0, width, height);
@@ -246,15 +166,15 @@ class Tutorial extends GameScene {
       pushMatrix();
       translate(0, 50 * sF);
 
-      for (Entity e : entities)
-        e.show();
+      for (int i = entities.size() - 1; i >= 0; i--)
+        entities.get(i).update();
 
       popMatrix();
 
 
       fill(255);
       textAlign(CENTER, BOTTOM);
-      textSize(20);
+      textSize(20 * sF);
       switch(thing) {
       case 0:
         text("Let's learn about all the power ups found throughout the game.", 450 * sF, 250 * sF);
@@ -284,46 +204,96 @@ class Tutorial extends GameScene {
         text("Cyclops are larger and clunkier.\nThey aren't the smartest and will be seen running into walls.\nThis may be funny, but their damage output is nothign to laugh at.\nThey have a medium movement speed and a small vision.", 450 * sF, 200 * sF);
         break;
       }
+
+      nextButton.show();
     }
 
     void update() {
       for (int i = entities.size() - 1; i >= 0; i--)
         entities.get(i).update();
     }
+  }
+
+  class NextButton extends Button {
+    Slide slide;
+
+    {
+      x = 800;
+      y = 525;
+      hei = 30;
+      wid = 140;
+      text = "Continue";
+      image = loadImage("assets/startButton.png");
+      textCol = color(255);
+    }
+  }
+
+  class NextButton1 extends NextButton {
+    NextButton1(Slide slide) {
+      this.slide = slide;
+    }
 
     void onPressed() {
-      switch(thing) {
-      case 0:
-        entities.add(new Heart(Tutorial.this));
-        break;
-      case 1:
-        entities.set(0, new SpeedBoost(Tutorial.this));
-        break;
+      switch(slide.thing) {
       case 2:
-        entities.set(0, new Point(Tutorial.this));
+        entities.add(new Heart(tut));
+        slide.thing++;
         break;
       case 3:
-        entities.set(0, new Glowstone(Tutorial.this));
         break;
       case 4:
-        entities.set(0, new DoubleView(Tutorial.this));
+        break;
+      case 5: 
+        break;
+      case 7:
+        entities.clear();
+        slide = new Slide2();
+        break;
+      default:
+        slide.thing++;
+      }
+    }
+  }
+
+  class NextButton2 extends NextButton {
+    NextButton2(Slide slide) {
+      this.slide = slide;
+    }
+
+    void onPressed() {
+      switch(slide.thing) {
+      case 0:
+        entities.add(new Heart(tut));
+        break;
+      case 1:
+        entities.set(0, new SpeedBoost(tut));
+        break;
+      case 2:
+        entities.set(0, new Point(tut));
+        break;
+      case 3:
+        entities.set(0, new Glowstone(tut));
+        break;
+      case 4:
+        entities.set(0, new DoubleView(tut));
         break;
       case 5:
         entities.clear();
         break;
       case 6:
-        entities.add(new Ghost(Tutorial.this));
+        entities.add(new Ghost(tut));
         break;
       case 7:
-        entities.set(0, new Cyclops(Tutorial.this));
+        entities.set(0, new Cyclops(tut));
         break;
       case 8:
         scene = new Start();
         break;
       }
-      thing++;
+      slide.thing++;
     }
   }
+
   class BackButton extends Button {
     {
       x = 100;

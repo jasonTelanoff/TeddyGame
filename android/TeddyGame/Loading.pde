@@ -17,7 +17,7 @@ class Loading extends Scene {
     title.show();
 
     textAlign(CENTER, CENTER);
-    textSize(40);
+    textSize(40 * sF);
     fill(255);
     loadingThing = "Loading your favorite game";
     for (int d = -1; d < dotCount; d++)
@@ -26,7 +26,7 @@ class Loading extends Scene {
     text(loadingThing, 450 * sF, 250 * sF);
 
     textAlign(RIGHT, BOTTOM);
-    textSize(15);
+    textSize(15 * sF);
     text("- .. -. -.-- .-.-.- -.-. -.-. -..-. - . -.. --. .- --", 890 * sF, 540 * sF);
   }
   void update() {

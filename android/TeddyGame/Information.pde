@@ -22,7 +22,7 @@ class Information extends GameScene {
     textAlign(CENTER, CENTER);
     fill(255);
     noStroke();
-    textSize(30);
+    textSize(30 * sF);
     if (!credits)
       text("This is a game. The goal of the game is to\nsurvive as long as possible. Ghosts will try to\ntake your soul, and Cyclops will bash your body.\n" + 
         "Only the bravest and strongest gamers will\nsurvive long enough to question what\nlife decisions led them to the point in their life\nwhere they're playing a game with no end\nfor minutes on end.", 450, 275);
@@ -37,7 +37,7 @@ class Information extends GameScene {
     }
     
     fill(255);
-    textSize(20);
+    textSize(20 * sF);
     textAlign(RIGHT, BOTTOM);
     text("Click anywhere to continue", 890, 540);
 
@@ -77,7 +77,7 @@ class Information extends GameScene {
       } else {
         if (keyPressed && !shown) {
           textAlign(RIGHT, BOTTOM);
-          textSize(12);
+          textSize(12 * sF);
           text("heh, nerd", 900, 550);
           shown = true;
         } else
