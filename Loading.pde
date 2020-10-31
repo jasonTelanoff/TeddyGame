@@ -7,7 +7,7 @@ class Loading extends Scene {
   {
     background = loadImage("assets/startBackground.png");
     title = new Title();
-    frameRate(1);
+    frameRate(0.75);
   }
 
   void show() {
