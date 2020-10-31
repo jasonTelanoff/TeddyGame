@@ -7,7 +7,7 @@ class Start extends GameScene {
     int ghosts = 10, cyclops = 6, hearts = 3, speeds = 3, points = 3, glows = 2, views = 2;
     background = loadImage("assets/startBackground.png");
 
-    if (!backgroundSound.isPlaying()) backgroundSound.loop();
+    //if (!backgroundSound.isPlaying()) backgroundSound.loop();
 
     title = new Title();
 
@@ -91,7 +91,7 @@ class Start extends GameScene {
     }
 
     void onPressed() {
-      backgroundSound.stop();
+      //backgroundSound.stop();
       scene = new Game();
     }
   }

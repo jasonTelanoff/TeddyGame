@@ -3,7 +3,7 @@ class Player extends Entity {
   float health, power, speed, normSpeed = 3.5, boostSpeed = 5;
   boolean attacking, facingRight, speedBoost;
   PImage imageLeft;
-  SoundFile walk;
+  Sound walk;
 
   Player(GameScene game, int x, int y) {
     pos = new PVector(x, y);
@@ -16,7 +16,7 @@ class Player extends Entity {
     image = loadImage("assets/playerRightHallow.png");
     imageLeft  = loadImage("assets/playerLeftHallow.png");
     this.game = game;
-    walk = new SoundFile(TeddyGame.this, "walk1.wav");
+    walk = loadSound("walk1.wav");
   }
 
   void show() {
@@ -69,7 +69,7 @@ class Player extends Entity {
 
     if (vel.mag() > 0)
       if (!walk.isPlaying() && random(1) < 0.07)
-        walk.play();
+        walk.start();
     pos = playerMovement(pos, vel, speed, wid, hei, game.barriers);
   }
 

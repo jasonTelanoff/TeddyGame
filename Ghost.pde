@@ -19,7 +19,7 @@ class Ghost extends Enemy {
       oVal = random(TWO_PI);
       image = loadImage("assets/ghostRight.png");
       imageLeft = loadImage("assets/ghostLeft.png");
-      attackSound = new SoundFile(TeddyGame.this, "ghost_attack.wav");
+      attackSound = loadSound("ghost_attack.wav");
     }
 
     void show() {

@@ -16,7 +16,7 @@ class Cyclops extends Enemy {
     totalFramesOff = 90;
     image = loadImage("assets/cyclopsRight.png");
     imageLeft = loadImage("assets/cyclopsLeft.png");
-    attackSound = new SoundFile(TeddyGame.this, "cyclops_attack.wav");
+    attackSound = loadSound("cyclops_attack.wav");
   }
 
   void defMove() {

@@ -14,12 +14,12 @@ class SpeedBoost extends PowerUp {
       pos = spawn(game.barriers);
       wid2 = 30;
       hei2 = 30;
-      sound = new SoundFile(TeddyGame.this, "speed.wav");
+      sound = loadSound("speed.wav");
     }
 
     void onPickUp() {
       if (framesLeft > 0) {
-        if (!sound.isPlaying()) sound.play();
+        if (!sound.isPlaying()) sound.start();
         framesLeft--;
         wid2-= 0.2;
         hei2-= 0.2;

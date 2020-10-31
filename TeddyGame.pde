@@ -15,14 +15,14 @@ void setup() {
 
   background(0);
 
-  new Thread() { 
-    public void run() {
-      backgroundGameMusic = new SoundFile(TeddyGame.this, "inGame.mp3");
-      tutorialMusic = new SoundFile(TeddyGame.this, "tutorial.mp3");
-      backgroundSound = new SoundFile(TeddyGame.this, "startBackground.mp3");
-    }
-  }
-  .start();
+  //new Thread() { 
+  //  public void run() {
+  //    backgroundGameMusic = new SoundFile(TeddyGame.this, "inGame.mp3");
+  //    tutorialMusic = new SoundFile(TeddyGame.this, "tutorial.mp3");
+  //    backgroundSound = new SoundFile(TeddyGame.this, "startBackground.mp3");
+  //  }
+  //}
+  //.start();
 
   scene = new Loading();
   scene.show();

@@ -10,7 +10,7 @@ class Point extends PowerUp {
     image = loadImage("assets/point.png");
     frames = 120;
     pos = spawn(game.barriers);
-    sound = new SoundFile(TeddyGame.this, "time.wav");
+    sound = loadSound("time.wav");
   }
 
   void onPickUp() {
