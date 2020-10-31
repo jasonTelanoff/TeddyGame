@@ -32,10 +32,10 @@ class Loading extends Scene {
     dotCount++;
     dotCount %= 3;
 
-    //if (backgroundSound != null && backgroundGameMusic != null && tutorialMusic != null) {
+    if (backgroundSound != null && backgroundGameMusic != null && tutorialMusic != null) {
       frameRate(60);
       scene = new Start();
-    //}
+    }
   }
   void onPressed() {
     title.onPressed();
