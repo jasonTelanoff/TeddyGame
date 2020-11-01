@@ -13,10 +13,10 @@ class Cyclops extends Enemy {
     size = 30;
     speed = 0.4;
     vision = 140;
-    totalFramesOff = 90;
+    totalFramesOff = 120;
     image = loadImage("assets/cyclopsRight.png");
     imageLeft = loadImage("assets/cyclopsLeft.png");
-    attackSound = new SoundFile(TeddyGame.this, "cyclops_attack.wav");
+    attackSound = "cyclops_attack";
   }
 
   void defMove() {

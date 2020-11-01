@@ -10,11 +10,13 @@ class DoubleView extends PowerUp {
       image = loadImage("assets/view.png");
       pos = spawn(game.barriers);
       frames = 120;
-      sound = new SoundFile(TeddyGame.this, "view.wav");
+      sound = "view";
     }
 
     void onPickUp() {
-      if (!sound.isPlaying()) sound.play();
+      if (!clips.get(sound).isRunning())
+        start(clips.get(sound));
+      playSound();
       ((Game) game).framesView = frames;
       extraValue = 0;
       framesIn = 0;

@@ -10,9 +10,9 @@ class Game extends GameScene {
     if (random(1) < 0.05)
       launchPage("https:www.youtube.com/watch?v=dQw4w9WgXcQ");
 
-    backgroundSound.stop();
-    backgroundGameMusic.stop();
-    backgroundGameMusic.loop();
+    //backgroundSound.stop();
+    //backgroundGameMusic.stop();
+    //backgroundGameMusic.loop();
 
     int ghosts = 4, cyclops = 3, hearts = 2, speeds = 2, points = 4, glows = 1, views = 1;
     lose = new Lose();
@@ -129,6 +129,10 @@ class Game extends GameScene {
     if (dead)
       lose.onPressed();
   }
+  
+  void onRelease() {}
+    
+    void onDragged() {}
 
   void overlay() {
     float _x = p.pos.x + p.wid/2;
@@ -137,8 +141,7 @@ class Game extends GameScene {
     loadPixels();
     for (int y = (int) max(50, _y - viewDist); y < min(height, _y + viewDist); y++)
       for (int x = (int) max(0, _x - viewDist); x < min(width, _x + viewDist); x++)
-        if (pixels[y*width + x] != color(255, 255, 0) &&
-          dist(_x, _y, x, y) > viewDist)
+        if (dist(_x, _y, x, y) > viewDist)
           pixels[y*width + x] = color(0);
     updatePixels();
 
@@ -177,7 +180,7 @@ class Game extends GameScene {
     }
 
     void onPressed() {
-      backgroundGameMusic.stop();
+      //backgroundGameMusic.stop();
       scene = new Game();
     }
   }

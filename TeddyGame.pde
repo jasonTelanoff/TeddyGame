@@ -1,11 +1,17 @@
-import processing.sound.*;
+//import processing.sound.*;
 
 Scene scene;
 boolean w = false, a = false, s = false, d = false, sp = false, rs;
 int kbc;
 boolean bkbc;
+float vol = 100;
 
-SoundFile backgroundSound, backgroundGameMusic, tutorialMusic;
+boolean debug = true;
+
+HashMap<String, Clip> clips = new HashMap();
+
+ArrayList<Overlay> overlays = new ArrayList();
+ArrayList<Overlay> overlaysToDelete = new ArrayList();
 
 void setup() {
   surface.setTitle("Teddy's Game");
@@ -15,11 +21,20 @@ void setup() {
 
   background(0);
 
-  new Thread() { 
+  new Thread() {
     public void run() {
-      backgroundGameMusic = new SoundFile(TeddyGame.this, "inGame.mp3");
-      tutorialMusic = new SoundFile(TeddyGame.this, "tutorial.mp3");
-      backgroundSound = new SoundFile(TeddyGame.this, "startBackground.mp3");
+      clips.put("inGame", loadSound("inGame.wav"));
+      clips.put("startBackground", loadSound("startBackground.wav"));
+      clips.put("tutorial", loadSound("tutorial.wav"));
+
+      clips.put("cyclops_attack", loadSound("cyclops_attack.wav"));
+      clips.put("ghost_attack", loadSound("ghost_attack.wav"));
+
+      clips.put("glow", loadSound("glow.wav"));
+      clips.put("speed", loadSound("speed.wav"));
+      clips.put("time", loadSound("time.wav"));
+      clips.put("view", loadSound("view.wav"));
+      clips.put("health", loadSound("health.wav"));
     }
   }
   .start();
@@ -31,12 +46,44 @@ void setup() {
 void draw() {
   if (!(scene instanceof Loading))
     surface.setTitle("Teddy's Game | FPS: " + frameRate);
-  scene.update();
+  boolean updateScene = true;
+  for (Overlay o : overlays)
+    updateScene &= o.update();
+  if (updateScene)
+    scene.update();
   scene.show();
+  
+  for (int i = overlaysToDelete.size() - 1; i >= 0; i--) {
+    overlays.remove(overlaysToDelete.get(i));
+    overlaysToDelete.remove(i);
+  }
+
+  for (Overlay o : overlays)
+    o.show();
 }
 
 void mousePressed() {
-  scene.onPressed();
+  boolean updateScene = true;
+  for (Overlay o : overlays)
+    updateScene &= o.onPressed();
+  if (updateScene)
+    scene.onPressed();
+}
+
+void mouseReleased() {
+  boolean updateScene = true;
+  for (Overlay o : overlays)
+    updateScene &= o.onRelease();
+  if (updateScene)
+    scene.onRelease();
+}
+
+void mouseDragged() {
+  boolean updateScene = true;
+  for (Overlay o : overlays)
+    updateScene &= o.onDragged();
+  if (updateScene)
+    scene.onDragged();
 }
 
 void keyPressed() {

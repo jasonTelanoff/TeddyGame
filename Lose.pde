@@ -47,7 +47,7 @@ class Lose {
     }
 
     void onPressed() {
-      backgroundGameMusic.stop();
+      //backgroundGameMusic.stop();
       scene = new Game();
     }
   }
@@ -64,7 +64,7 @@ class Lose {
     }
 
     void onPressed() {
-      backgroundGameMusic.stop();
+      //backgroundGameMusic.stop();
       scene = new Start();
     }
   }

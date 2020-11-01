@@ -3,7 +3,9 @@ class Player extends Entity {
   float health, power, speed, normSpeed = 3.5, boostSpeed = 5;
   boolean attacking, facingRight, speedBoost;
   PImage imageLeft;
-  SoundFile walk;
+  String walk;
+  
+  boolean godMode;
 
   Player(GameScene game, int x, int y) {
     pos = new PVector(x, y);
@@ -16,7 +18,9 @@ class Player extends Entity {
     image = loadImage("assets/playerRightHallow.png");
     imageLeft  = loadImage("assets/playerLeftHallow.png");
     this.game = game;
-    walk = new SoundFile(TeddyGame.this, "walk1.wav");
+    walk = "walk1.wav";
+    
+    godMode = debug && true;
   }
 
   void show() {
@@ -33,7 +37,12 @@ class Player extends Entity {
   }
 
   void update() {
-    speed = speedBoost?boostSpeed:normSpeed;
+    speed = speedBoost ? boostSpeed : normSpeed;
+    
+    if (godMode) {
+      health = 100;
+      power = 200;
+    }
 
     if (attacking) {
       if (power > 0) {
@@ -68,8 +77,10 @@ class Player extends Entity {
     if (sp && power == 100) attack();
 
     if (vel.mag() > 0)
-      if (!walk.isPlaying() && random(1) < 0.07)
-        walk.play();
+      if (random(1) < 0.07) {
+        playSound(walk);
+        playSound();
+      }
     pos = playerMovement(pos, vel, speed, wid, hei, game.barriers);
   }
 

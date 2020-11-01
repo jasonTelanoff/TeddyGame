@@ -10,11 +10,13 @@ class Glowstone extends PowerUp {
       image = loadImage("assets/glowstone.png");
       pos = spawn(game.barriers);
       frames = 120;
-      sound = new SoundFile(TeddyGame.this, "glow.wav");
+      sound = "glow";
     }
 
     void onPickUp() {
-      if (!sound.isPlaying()) sound.play();
+      if (!clips.get(sound).isRunning())
+        start(clips.get(sound));
+      playSound();
       ((Game) game).glowing = frames;
       extraValue = 0;
       framesIn = 0;
