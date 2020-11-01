@@ -1,7 +1,7 @@
 //import processing.sound.*;
 
 Scene scene;
-boolean w = false, a = false, s = false, d = false, sp = false, rs;
+boolean w, a, s, d, sp, rs;
 int kbc;
 boolean bkbc;
 float vol = 100;
