@@ -3,11 +3,15 @@ class Start extends GameScene {
   ArrayList<Button> buttons = new ArrayList<Button>();
   Title title;
 
-  Start() {
+  {
+    overlays.add(new SoundOverlay());
+    
     int ghosts = 10, cyclops = 6, hearts = 3, speeds = 3, points = 3, glows = 2, views = 2;
     background = loadImage("assets/startBackground.png");
 
-    //if (!backgroundSound.isPlaying()) backgroundSound.loop();
+    if (!clips.get("startBackground").isRunning()) {
+      clips.get("startBackground").loop(Clip.LOOP_CONTINUOUSLY);
+    }
 
     title = new Title();
 
@@ -78,6 +82,10 @@ class Start extends GameScene {
       if (b.mouseOn())
         b.onPressed();
   }
+  
+  void onRelease() {}
+    
+    void onDragged() {}
 
   class StartButton extends Button {
     {
@@ -91,7 +99,7 @@ class Start extends GameScene {
     }
 
     void onPressed() {
-      //backgroundSound.stop();
+      clips.get("startBackground").stop();
       scene = new Game();
     }
   }
@@ -108,7 +116,7 @@ class Start extends GameScene {
     }
 
     void onPressed() {
-      //backgroundSound.stop();
+      clips.get("startBackground").stop();
       scene = new Tutorial();
     }
   }

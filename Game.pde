@@ -129,6 +129,10 @@ class Game extends GameScene {
     if (dead)
       lose.onPressed();
   }
+  
+  void onRelease() {}
+    
+    void onDragged() {}
 
   void overlay() {
     float _x = p.pos.x + p.wid/2;

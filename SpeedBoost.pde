@@ -1,49 +1,43 @@
 class SpeedBoost extends PowerUp {
-    float wid2, hei2, newSpeed = 5;
-    int framesLeft;
-    boolean hasPlayedSound;
+  float wid2, hei2, newSpeed = 5;
+  int framesLeft;
 
-    SpeedBoost(GameScene game) {
-      this.game = game;
-      wid = 30;
-      hei = 30;
-      pickUpRange = 100;
-      animateRange = 100;
-      speed = 12;
-      image = loadImage("assets/speedBoost.png");
-      framesLeft = 60;
-      pos = spawn(game.barriers);
+  SpeedBoost(GameScene game) {
+    this.game = game;
+    wid = 30;
+    hei = 30;
+    pickUpRange = 100;
+    animateRange = 100;
+    speed = 12;
+    image = loadImage("assets/speedBoost.png");
+    framesLeft = 60;
+    pos = spawn(game.barriers);
+    wid2 = 30;
+    hei2 = 30;
+    sound = "speed";
+  }
+
+  void onPickUp() {
+    if (framesLeft > 0) {
+      if (!clips.get(sound).isRunning())
+        start(clips.get(sound));
+      playSound();
+      framesLeft--;
+      wid2-= 0.2;
+      hei2-= 0.2;
+      wid = (int) wid2;
+      hei = (int) hei2;
+      game.p.speedBoost = true;
+    } else {
+      game.p.speedBoost = false;
       wid2 = 30;
       hei2 = 30;
-      sound = "speed.wav";
-      hasPlayedSound = false;
-    }
-
-    void onPickUp() {
-      if (framesLeft > 0) {
-        //if (!sound.isPlaying())
-        if (!hasPlayedSound) {
-          playSound(sound);
-          hasPlayedSound = true;
-        }
-        playSound();
-        framesLeft--;
-        wid2-= 0.2;
-        hei2-= 0.2;
-        wid = (int) wid2;
-        hei = (int) hei2;
-        game.p.speedBoost = true;
-      } else {
-        game.p.speedBoost = false;
-        wid2 = 30;
-        hei2 = 30;
-        wid = (int) wid2;
-        hei = (int) hei2;
-        framesLeft = 60;
-        extraValue = 0;
-        framesIn = 0;
-        pos = spawn(game.barriers);
-        hasPlayedSound = false;
-      }
+      wid = (int) wid2;
+      hei = (int) hei2;
+      framesLeft = 60;
+      extraValue = 0;
+      framesIn = 0;
+      pos = spawn(game.barriers);
     }
   }
+}

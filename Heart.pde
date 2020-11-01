@@ -7,12 +7,12 @@ class Heart extends PowerUp {
       speed = 4;
       image = loadImage("assets/heart.png");
       pos = spawn(game.barriers);
-      sound = "health.wav";
+      sound = "health";
     }
 
     void onPickUp() {
-      //if (!sound.isPlaying())
-      playSound(sound);
+      if (!clips.get(sound).isRunning())
+        start(clips.get(sound));
       playSound();
       game.p.heal(9.5);
       extraValue = 0;

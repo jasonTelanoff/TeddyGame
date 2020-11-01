@@ -10,7 +10,7 @@ class Point extends PowerUp {
     image = loadImage("assets/point.png");
     frames = 120;
     pos = spawn(game.barriers);
-    sound = "time.wav";
+    sound = "time";
   }
 
   void onPickUp() {
@@ -20,5 +20,8 @@ class Point extends PowerUp {
     extraValue = 0;
     framesIn = 0;
     pos = spawn(game.barriers);
+    
+    if (!clips.get(sound).isRunning())
+        start(clips.get(sound));
   }
 }

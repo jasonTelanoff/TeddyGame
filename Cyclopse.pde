@@ -16,7 +16,7 @@ class Cyclops extends Enemy {
     totalFramesOff = 120;
     image = loadImage("assets/cyclopsRight.png");
     imageLeft = loadImage("assets/cyclopsLeft.png");
-    attackSound = "cyclops_attack.wav";
+    attackSound = "cyclops_attack";
   }
 
   void defMove() {

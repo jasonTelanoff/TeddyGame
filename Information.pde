@@ -90,6 +90,10 @@ class Information extends GameScene {
         entities.add(new Cyclops(this));
     } else credits = true;
   }
+  
+  void onRelease() {}
+    
+    void onDragged() {}
 
   class BackButton extends Button {
     {

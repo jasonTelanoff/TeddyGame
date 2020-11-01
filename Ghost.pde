@@ -19,7 +19,7 @@ class Ghost extends Enemy {
       oVal = random(TWO_PI);
       image = loadImage("assets/ghostRight.png");
       imageLeft = loadImage("assets/ghostLeft.png");
-      attackSound = "ghost_attack.wav";
+      attackSound = "ghost_attack";
     }
 
     void show() {

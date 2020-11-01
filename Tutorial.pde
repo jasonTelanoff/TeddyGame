@@ -1,4 +1,4 @@
-class Tutorial extends Scene {
+class Tutorial implements Scene {
   int page;
   float viewDist = 150;
   ArrayList<Barrier> barriers = new ArrayList<Barrier>();
@@ -8,7 +8,7 @@ class Tutorial extends Scene {
   Button backButton;
 
   {
-    tutorialMusic.loop();
+    //tutorialMusic.loop();
     page = 0;
     p = new Player();
 
@@ -41,6 +41,10 @@ class Tutorial extends Scene {
     else
       slide.onPressed();
   }
+  
+  void onRelease() {}
+    
+    void onDragged() {}
 
   class Slide {
     ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -317,7 +321,7 @@ class Tutorial extends Scene {
         entities.set(0, new Cyclops());
         break;
       case 8:
-        tutorialMusic.stop();
+        //tutorialMusic.stop();
         scene = new Start();
         break;
       }
@@ -440,7 +444,7 @@ class Tutorial extends Scene {
     float health, power, speed;
     boolean attacking, facingRight;
     PImage imageLeft;
-    SoundFile walk;
+    Clip walk;
 
     Player() {
       pos = new PVector(5, 5);
@@ -454,7 +458,7 @@ class Tutorial extends Scene {
       framesView = 0;
       image = loadImage("assets/playerRightHallow.png");
       imageLeft  = loadImage("assets/playerLeftHallow.png");
-      walk = new SoundFile(TeddyGame.this, "walk1.wav");
+      walk = loadSound("walk1.wav");
     }
 
     void show() {
@@ -504,8 +508,8 @@ class Tutorial extends Scene {
       pos = playerMovement(pos, vel, speed, wid, hei, barriers);
 
       if (vel.mag() > 0)
-        if (!walk.isPlaying() && random(1) < 0.07) {
-          walk.play();
+        if (!walk.isRunning() && random(1) < 0.07) {
+          walk.start();
         }
     }
 
@@ -529,7 +533,7 @@ class Tutorial extends Scene {
     }
 
     void onPressed() {
-      tutorialMusic.stop();
+      //tutorialMusic.stop();
       scene = new Start();
     }
   }

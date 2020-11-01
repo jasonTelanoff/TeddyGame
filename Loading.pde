@@ -1,4 +1,4 @@
-class Loading extends Scene {
+class Loading implements Scene {
   PImage background;
   Title title;
   int dotCount;
@@ -32,12 +32,16 @@ class Loading extends Scene {
     dotCount++;
     dotCount %= 3;
 
-    //if (backgroundSound != null && backgroundGameMusic != null && tutorialMusic != null) {
+    if (clips.get("inGame") != null && clips.get("tutorial") != null && clips.get("startBackground") != null) {
       frameRate(60);
       scene = new Start();
-    //}
+    }
   }
   void onPressed() {
     title.onPressed();
   }
+  
+  void onRelease() {}
+    
+    void onDragged() {}
 }

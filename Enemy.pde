@@ -41,7 +41,7 @@ class Enemy extends Entity {
       if (dieOnDam)
         game.entities.remove(this);
       else if (frFromLast == damDelay) {
-        playSound(attackSound);
+        start(clips.get(attackSound));
         playSound();
         game.p.takeDamage(damage);
         frFromLast = 0;

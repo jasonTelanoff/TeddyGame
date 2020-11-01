@@ -1,4 +1,4 @@
-class Button {
+class Button implements UIComponent {
     String text;
     int x, y, wid, hei;
     PImage image;
@@ -30,4 +30,8 @@ class Button {
 
     void onPressed() {
     }
+    
+    void onRelease() {}
+    
+    void onDragged() {}
   }
