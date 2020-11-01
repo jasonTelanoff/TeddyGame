@@ -89,7 +89,7 @@ class Tutorial extends GameScene {
         rect(470 * sF, 10 * sF, (p.health * 3) * sF, 30 * sF);
 
         stroke(50);
-        strokeWeight(5);
+        strokeWeight(5 * sF);
         noFill();
         rect(470 * sF, 10 * sF, 300 * sF, 30 * sF);
       }

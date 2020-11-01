@@ -12,7 +12,7 @@ class Entity {
   void showGlow() {
     noFill();
     stroke(glowCol);
-    strokeWeight(1);
+    strokeWeight(1 * sF);
     rect(pos.x * sF, (pos.y + 50) * sF, wid * sF, hei * sF);
   }
   PVector spawn(ArrayList<Barrier> barriers) {    

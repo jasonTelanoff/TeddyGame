@@ -29,7 +29,7 @@ class Player extends Entity {
     if (attacking) {
       stroke(90, 170, 255, 100);
       noFill();
-      strokeWeight(10);
+      strokeWeight(10 * sF);
       circle((pos.x + wid/2) * sF, (pos.y + hei/2) * sF, attackRad);
     }
 

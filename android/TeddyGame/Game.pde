@@ -44,6 +44,7 @@ class Game extends GameScene {
 
     buttons.add(new Restart());
     buttons.add(new Pause());
+    buttons.add(new AttackButton());
   }
 
   void show() {
@@ -76,7 +77,7 @@ class Game extends GameScene {
     rect(470 * sF, 10 * sF, (p.health * 3) * sF, 30 * sF);
 
     stroke(50);
-    strokeWeight(5);
+    strokeWeight(5 * sF);
     noFill();
     rect(30 * sF, 10 * sF, 300 * sF, 30 * sF);
     rect(470 * sF, 10 * sF, 300 * sF, 30 * sF);
@@ -200,6 +201,35 @@ class Game extends GameScene {
     void onPressed() {
       paused = !paused;
       image = paused ? playImg : pauImg;
+    }
+  }
+  
+  class AttackButton extends Button {
+    int size;
+    
+    {
+      x = width;
+      y = height/9;
+      size = height/4;
+    }
+    
+    void show() {
+      println("showing");
+      
+      pushMatrix();
+      translate(-leftPadding, 0);
+      noStroke();
+      fill(90, 170, 255);
+      arc(x, y, size, size, map(p.power, 0, 100, HALF_PI, -HALF_PI), map(p.power, 0, 100, HALF_PI, PI + HALF_PI), CHORD);
+      
+      stroke(100);
+      noFill();
+      circle(x, y, size);
+      popMatrix();
+    }
+    
+    boolean mouseOn() {
+      return dist(mouseX, mouseY, x, y) < size/2;
     }
   }
 }
